@@ -8,7 +8,7 @@ namespace KursahProject
 {
     public partial class App : Application
     {
-        public const string DBFILENAME = "DidacticCards.db";
+        private const string DBFILENAME = "AppData.db";
         public App()
         {
             InitializeComponent();
