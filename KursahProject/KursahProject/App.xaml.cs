@@ -8,7 +8,7 @@ namespace KursahProject
 {
     public partial class App : Application
     {
-        private const string DBFILENAME = "AppData.db";
+        public const string DBFILENAME = "AppData.db";
         public App()
         {
             InitializeComponent();
@@ -22,6 +22,8 @@ namespace KursahProject
                 new Exception("Не удалось подключиться к базе данных");
             }
             DependencyService.Register<MockDataStore>();
+            DependencyService.Register<CardSetDataStore>();
+            DependencyService.Register<CardDataStore>();
             MainPage = new AppShell();
         }
 
