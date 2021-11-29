@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace KursahProject.Services
 {
-    public interface IFlashCardsDataStorecs<T>
+    public interface IMyDataStore<T>
     {
         Task<bool> AddItemAsync(T item);
         Task<bool> UpdateItemAsync(T item);

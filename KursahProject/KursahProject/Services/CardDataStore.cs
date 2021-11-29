@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace KursahProject.Services
 {
-    public class CardDataStore : IFlashCardsDataStorecs<Card>
+    public class CardDataStore : IMyDataStore<Card>
     {
 
         private List<Card> items;

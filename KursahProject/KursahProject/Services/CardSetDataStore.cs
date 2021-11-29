@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace KursahProject.Services
 {
-    public class CardSetDataStore : IFlashCardsDataStorecs<CardSet>
+    public class CardSetDataStore : IMyDataStore<CardSet>
     {
         private List<CardSet> items;
 
