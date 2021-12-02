@@ -11,6 +11,8 @@ namespace FlashcardsCourseProject.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IMyDataStore<Cards> CardDataStore => DependencyService.Get<IMyDataStore<Cards>>();
+        public IMyDataStore<CardSets> CardSetDataStore => DependencyService.Get<IMyDataStore<CardSets>>();
 
         bool isBusy = false;
         public bool IsBusy

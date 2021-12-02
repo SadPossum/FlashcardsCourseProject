@@ -15,12 +15,14 @@ namespace FlashcardsCourseProject
             try
             {
                 string dbPath = DependencyService.Get<IPath>().GetDatabasePath(DBFILENAME);
-                var db = new ApplicationContext(dbPath);
+                DependencyService.RegisterSingleton<ApplicationContext>(new ApplicationContext(dbPath));
+
             }
             catch
             {
                 new Exception("Не удалось подключиться к базе данных");
             }
+
             DependencyService.Register<MockDataStore>();
             DependencyService.Register<CardSetDataStore>();
             DependencyService.Register<CardDataStore>();
