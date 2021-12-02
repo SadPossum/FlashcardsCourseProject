@@ -7,27 +7,29 @@ using Xamarin.Forms;
 
 namespace KursahProject.Services
 {
-    public class CardSetDataStore : IMyDataStore<CardSet>
+    public class CardSetDataStore : IMyDataStore<CardSets>
     {
-        private List<CardSet> items;
-
+        private List<CardSets> items;
+        public ApplicationContext context => DependencyService.Get<ApplicationContext>();
         public CardSetDataStore()
         {
 
         }
 
-        public async Task<bool> AddItemAsync(CardSet item)
+        public async Task<bool> AddItemAsync(CardSets item)
         {
             items.Add(item);
-
+            context.SaveChanges();
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(CardSet item)
+        public async Task<bool> UpdateItemAsync(CardSets item)
         {
             var oldItem = items.Where(a => a.Id == item.Id).FirstOrDefault();
             items.Remove(oldItem);
             items.Add(item);
+            context.SaveChanges();
+
 
             return await Task.FromResult(true);
         }
@@ -36,24 +38,22 @@ namespace KursahProject.Services
         {
             var oldItem = items.Where(a => a.Id == id).FirstOrDefault();
             items.Remove(oldItem);
+            context.SaveChanges();
+
 
             return await Task.FromResult(true);
         }
 
-        public async Task<CardSet> GetItemAsync(int id)
+        public async Task<CardSets> GetItemAsync(int id)
         {
             return await Task.FromResult(items.FirstOrDefault(a => a.Id == id));
         }
 
-        public async Task<IEnumerable<CardSet>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<CardSets>> GetItemsAsync(bool forceRefresh = false)
         {
             if (forceRefresh == true)
             {
-                string dbPath = DependencyService.Get<IPath>().GetDatabasePath(App.DBFILENAME);
-                using (ApplicationContext db = new ApplicationContext(dbPath))
-                {
-                    items = db.CardSets.ToList();
-                }
+                items = context.CardSet.ToList();
             }
             return await Task.FromResult(items);
         }
