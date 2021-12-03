@@ -12,17 +12,22 @@ namespace FlashcardsCourseProject.Services
     {
 
         private List<Card> items;
-        public ApplicationContext context => DependencyService.Get<ApplicationContext>();
+        public ApplicationContext db => DependencyService.Get<ApplicationContext>();
 
         public CardDataStore()
         {
-
+            db.Database.EnsureCreated();
+            //if (db.Card.Count() == 0)
+            //{
+            //    db.Card.Add(new Card { Id = Guid.NewGuid().ToString(), Name = "Карточка №1", FrontImage = "frontImagePath", BackImage= "backImagePath", BackText = "Карточка №1", new CardSet { Id = } });
+            //    db.SaveChanges();
+            //}
         }
         public async Task<bool> AddItemAsync(Card item)
         {
             items.Add(item);
-            context.Card.Add(item);
-            context.SaveChanges();
+            db.Card.Add(item);
+            db.SaveChanges();
 
             return await Task.FromResult(true);
         }
@@ -32,7 +37,8 @@ namespace FlashcardsCourseProject.Services
             var oldItem = items.Where(a => a.Id == item.Id).FirstOrDefault();
             items.Remove(oldItem);
             items.Add(item);
-            context.SaveChanges();
+            db.Card.Update(item);
+            db.SaveChanges();
 
             return await Task.FromResult(true);
         }
@@ -41,8 +47,8 @@ namespace FlashcardsCourseProject.Services
         {
             var oldItem = items.Where(a => a.Id == id).FirstOrDefault();
             items.Remove(oldItem);
-            context.Card.Remove(oldItem);
-            context.SaveChanges();
+            db.Card.Remove(oldItem);
+            db.SaveChanges();
 
             return await Task.FromResult(true);
         }
@@ -56,7 +62,7 @@ namespace FlashcardsCourseProject.Services
         {
             if (forceRefresh == true)
             {
-                items = context.Card.ToList();
+                items = db.Card.ToList();
             }
             return await Task.FromResult(items);
         }

@@ -13,7 +13,13 @@ namespace FlashcardsCourseProject.Services
         public ApplicationContext db => DependencyService.Get<ApplicationContext>();
         public CardSetDataStore()
         {
-
+            db.Database.EnsureCreated();
+            if (db.CardSet.Count() == 0)
+            {
+                db.CardSet.Add(new CardSet { Id = Guid.NewGuid().ToString(), Name = "Набор карточек №1", Picture = "111" });
+                db.CardSet.Add(new CardSet { Id = Guid.NewGuid().ToString(), Name = "Набор карточек №2", Picture = "222" });
+                db.SaveChanges();
+            }
         }
 
         public async Task<bool> AddItemAsync(CardSet item)
@@ -29,6 +35,7 @@ namespace FlashcardsCourseProject.Services
             var oldItem = items.Where(a => a.Id == item.Id).FirstOrDefault();
             items.Remove(oldItem);
             items.Add(item);
+            db.CardSet.Update(item);
             db.SaveChanges();
 
 
@@ -39,6 +46,7 @@ namespace FlashcardsCourseProject.Services
         {
             var oldItem = items.Where(a => a.Id == id).FirstOrDefault();
             items.Remove(oldItem);
+            db.CardSet.Remove(oldItem);
             db.SaveChanges();
 
 
@@ -54,13 +62,6 @@ namespace FlashcardsCourseProject.Services
         {
             if (forceRefresh == true)
             {
-                db.Database.EnsureCreated();
-                if(db.CardSet.Count() == 0)
-                {
-                    db.CardSet.Add(new CardSet { Id = Guid.NewGuid().ToString(), Name = "Набор карточек №1", Picture = "111" });
-                    db.CardSet.Add(new CardSet { Id = Guid.NewGuid().ToString(), Name = "Набор карточек №2", Picture = "222" });
-                    db.SaveChanges();
-                }
                 items = db.CardSet.ToList();
             }
             return await Task.FromResult(items);
