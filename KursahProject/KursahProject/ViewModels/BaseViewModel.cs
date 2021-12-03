@@ -10,7 +10,6 @@ namespace KursahProject.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
         public IDataStore<Card> CardDataStore => DependencyService.Get<IDataStore<Card>>();
         public IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
 

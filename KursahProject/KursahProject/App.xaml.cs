@@ -23,7 +23,6 @@ namespace KursahProject
                 new Exception("Не удалось подключиться к базе данных");
             }
 
-            DependencyService.Register<MockDataStore>();
             DependencyService.Register<CardSetDataStore>();
             DependencyService.Register<CardDataStore>();
             MainPage = new AppShell();
