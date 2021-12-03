@@ -7,19 +7,26 @@ using Xamarin.Forms;
 
 namespace KursahProject.Services
 {
-    public class CardSetDataStore : IMyDataStore<CardSet>
+    public class CardSetDataStore : IDataStore<CardSet>
     {
         private List<CardSet> items;
-
+        public ApplicationContext db => DependencyService.Get<ApplicationContext>();
         public CardSetDataStore()
         {
-
+            db.Database.EnsureCreated();
+            if (db.CardSet.Count() == 0)
+            {
+                db.CardSet.Add(new CardSet { Id = Guid.NewGuid().ToString(), Name = "Набор карточек №1", Picture = "111" });
+                db.CardSet.Add(new CardSet { Id = Guid.NewGuid().ToString(), Name = "Набор карточек №2", Picture = "222" });
+                db.SaveChanges();
+            }
         }
 
         public async Task<bool> AddItemAsync(CardSet item)
         {
             items.Add(item);
-
+            db.CardSet.Add(item);
+            db.SaveChanges();
             return await Task.FromResult(true);
         }
 
@@ -28,19 +35,25 @@ namespace KursahProject.Services
             var oldItem = items.Where(a => a.Id == item.Id).FirstOrDefault();
             items.Remove(oldItem);
             items.Add(item);
+            db.CardSet.Update(item);
+            db.SaveChanges();
+
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(int id)
+        public async Task<bool> DeleteItemAsync(string id)
         {
             var oldItem = items.Where(a => a.Id == id).FirstOrDefault();
             items.Remove(oldItem);
+            db.CardSet.Remove(oldItem);
+            db.SaveChanges();
+
 
             return await Task.FromResult(true);
         }
 
-        public async Task<CardSet> GetItemAsync(int id)
+        public async Task<CardSet> GetItemAsync(string id)
         {
             return await Task.FromResult(items.FirstOrDefault(a => a.Id == id));
         }
@@ -49,11 +62,7 @@ namespace KursahProject.Services
         {
             if (forceRefresh == true)
             {
-                string dbPath = DependencyService.Get<IPath>().GetDatabasePath(App.DBFILENAME);
-                using (ApplicationContext db = new ApplicationContext(dbPath))
-                {
-                    items = db.CardSets.ToList();
-                }
+                items = db.CardSet.ToList();
             }
             return await Task.FromResult(items);
         }

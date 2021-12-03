@@ -6,24 +6,25 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
+
 namespace KursahProject.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class CardSetViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private CardSet _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<CardSet> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<CardSet> CardSetTapped { get; }
 
-        public ItemsViewModel()
+        public CardSetViewModel()
         {
-            Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Title = "Наборы карточек";
+            Items = new ObservableCollection<CardSet>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            CardSetTapped = new Command<CardSet>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -35,7 +36,7 @@ namespace KursahProject.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await CardSetDataStore.GetItemsAsync(true);
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -57,7 +58,7 @@ namespace KursahProject.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public CardSet SelectedItem
         {
             get => _selectedItem;
             set
@@ -69,16 +70,16 @@ namespace KursahProject.ViewModels
 
         private async void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
+            await Shell.Current.GoToAsync(nameof(NewCardSetPage));
         }
 
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(CardSet cardSet)
         {
-            if (item == null)
+            if (cardSet == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(CardSetDetailPage)}?{nameof(CardSetDetailViewModel.ItemId)}={cardSet.Id}");
         }
     }
 }

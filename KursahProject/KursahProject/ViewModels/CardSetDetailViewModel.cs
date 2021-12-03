@@ -1,29 +1,29 @@
-﻿using KursahProject.Models;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Text;
 using Xamarin.Forms;
 
 namespace KursahProject.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
-    public class ItemDetailViewModel : BaseViewModel
+    public class CardSetDetailViewModel : BaseViewModel
     {
         private string itemId;
-        private string text;
-        private string description;
+        private string name;
+        private string picture;
         public string Id { get; set; }
 
-        public string Text
+        public string Name
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => name;
+            set => SetProperty(ref name, value);
         }
 
-        public string Description
+        public string Picture
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => picture;
+            set => SetProperty(ref picture, value);
         }
 
         public string ItemId
@@ -43,10 +43,10 @@ namespace KursahProject.ViewModels
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
+                var item = await CardSetDataStore.GetItemAsync(itemId);
                 Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
+                Name = item.Name;
+                Picture = item.Picture;
             }
             catch (Exception)
             {

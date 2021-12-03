@@ -1,32 +1,29 @@
-﻿using KursahProject.Models;
-using KursahProject.ViewModels;
-using KursahProject.Views;
+﻿using KursahProject.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace KursahProject.Views
 {
-    public partial class ItemsPage : ContentPage
+    public partial class CardSetPage : ContentPage
     {
-        ItemsViewModel _viewModel;
-
-        public ItemsPage()
+        private CardSetViewModel _cardsetView;
+        public CardSetPage()
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = new ItemsViewModel();
+            BindingContext = _cardsetView = new CardSetViewModel();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.OnAppearing();
+            _cardsetView.OnAppearing();
         }
     }
 }

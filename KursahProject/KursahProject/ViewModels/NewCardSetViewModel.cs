@@ -1,4 +1,5 @@
 ﻿using KursahProject.Models;
+using KursahProject.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,12 +8,12 @@ using Xamarin.Forms;
 
 namespace KursahProject.ViewModels
 {
-    public class NewItemViewModel : BaseViewModel
+    public class NewCardSetViewModel : BaseViewModel
     {
-        private string text;
-        private string description;
+        private string name;
+        private string picture;
 
-        public NewItemViewModel()
+        public NewCardSetViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
@@ -22,20 +23,20 @@ namespace KursahProject.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(text)
-                && !String.IsNullOrWhiteSpace(description);
+            return !String.IsNullOrWhiteSpace(name)
+                && !String.IsNullOrWhiteSpace(picture);
         }
 
-        public string Text
+        public string Name
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => name;
+            set => SetProperty(ref name, value);
         }
 
-        public string Description
+        public string Picture
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => picture;
+            set => SetProperty(ref picture, value);
         }
 
         public Command SaveCommand { get; }
@@ -49,14 +50,14 @@ namespace KursahProject.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            CardSet newItem = new CardSet()
             {
                 Id = Guid.NewGuid().ToString(),
-                Text = Text,
-                Description = Description
+                Name = Name,
+                Picture = Picture
             };
 
-            await DataStore.AddItemAsync(newItem);
+            await CardSetDataStore.AddItemAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
