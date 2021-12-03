@@ -7,53 +7,61 @@ using Xamarin.Forms;
 
 namespace KursahProject.Services
 {
-    public class CardSetDataStore : IMyDataStore<CardSets>
+    public class CardSetDataStore : IDataStore<CardSet>
     {
-        private List<CardSets> items;
-        public ApplicationContext context => DependencyService.Get<ApplicationContext>();
+        private List<CardSet> items;
+        public ApplicationContext db => DependencyService.Get<ApplicationContext>();
         public CardSetDataStore()
         {
 
         }
 
-        public async Task<bool> AddItemAsync(CardSets item)
+        public async Task<bool> AddItemAsync(CardSet item)
         {
             items.Add(item);
-            context.SaveChanges();
+            db.CardSet.Add(item);
+            db.SaveChanges();
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(CardSets item)
+        public async Task<bool> UpdateItemAsync(CardSet item)
         {
             var oldItem = items.Where(a => a.Id == item.Id).FirstOrDefault();
             items.Remove(oldItem);
             items.Add(item);
-            context.SaveChanges();
+            db.SaveChanges();
 
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(int id)
+        public async Task<bool> DeleteItemAsync(string id)
         {
             var oldItem = items.Where(a => a.Id == id).FirstOrDefault();
             items.Remove(oldItem);
-            context.SaveChanges();
+            db.SaveChanges();
 
 
             return await Task.FromResult(true);
         }
 
-        public async Task<CardSets> GetItemAsync(int id)
+        public async Task<CardSet> GetItemAsync(string id)
         {
             return await Task.FromResult(items.FirstOrDefault(a => a.Id == id));
         }
 
-        public async Task<IEnumerable<CardSets>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<CardSet>> GetItemsAsync(bool forceRefresh = false)
         {
             if (forceRefresh == true)
             {
-                items = context.CardSet.ToList();
+                db.Database.EnsureCreated();
+                if(db.CardSet.Count() == 0)
+                {
+                    db.CardSet.Add(new CardSet { Id = Guid.NewGuid().ToString(), Name = "Набор карточек №1", Picture = "111" });
+                    db.CardSet.Add(new CardSet { Id = Guid.NewGuid().ToString(), Name = "Набор карточек №2", Picture = "222" });
+                    db.SaveChanges();
+                }
+                items = db.CardSet.ToList();
             }
             return await Task.FromResult(items);
         }

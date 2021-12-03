@@ -8,17 +8,17 @@ using Xamarin.Forms;
 
 namespace KursahProject.Services
 {
-    public class CardDataStore : IMyDataStore<Cards>
+    public class CardDataStore : IDataStore<Card>
     {
 
-        private List<Cards> items;
+        private List<Card> items;
         public ApplicationContext context => DependencyService.Get<ApplicationContext>();
 
         public CardDataStore()
         {
 
         }
-        public async Task<bool> AddItemAsync(Cards item)
+        public async Task<bool> AddItemAsync(Card item)
         {
             items.Add(item);
             context.Card.Add(item);
@@ -27,7 +27,7 @@ namespace KursahProject.Services
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(Cards item)
+        public async Task<bool> UpdateItemAsync(Card item)
         {
             var oldItem = items.Where(a => a.Id == item.Id).FirstOrDefault();
             items.Remove(oldItem);
@@ -37,7 +37,7 @@ namespace KursahProject.Services
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(int id)
+        public async Task<bool> DeleteItemAsync(string id)
         {
             var oldItem = items.Where(a => a.Id == id).FirstOrDefault();
             items.Remove(oldItem);
@@ -47,12 +47,12 @@ namespace KursahProject.Services
             return await Task.FromResult(true);
         }
 
-        public async Task<Cards> GetItemAsync(int id)
+        public async Task<Card> GetItemAsync(string id)
         {
             return await Task.FromResult(items.FirstOrDefault(a => a.Id == id));
         }
 
-        public async Task<IEnumerable<Cards>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Card>> GetItemsAsync(bool forceRefresh = false)
         {
             if (forceRefresh == true)
             {
