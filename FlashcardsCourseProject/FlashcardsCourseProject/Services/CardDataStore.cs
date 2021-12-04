@@ -1,8 +1,6 @@
 ﻿using FlashcardsCourseProject.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -17,11 +15,6 @@ namespace FlashcardsCourseProject.Services
         public CardDataStore()
         {
             db.Database.EnsureCreated();
-            //if (db.Card.Count() == 0)
-            //{
-            //    db.Card.Add(new Card { Id = Guid.NewGuid().ToString(), Name = "Карточка №1", FrontImage = "frontImagePath", BackImage= "backImagePath", BackText = "Карточка №1", new CardSet { Id = } });
-            //    db.SaveChanges();
-            //}
         }
         public async Task<bool> AddItemAsync(Card item)
         {

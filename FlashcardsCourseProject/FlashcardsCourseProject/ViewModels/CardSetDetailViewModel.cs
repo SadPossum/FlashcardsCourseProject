@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FlashcardsCourseProject.Models;
+using FlashcardsCourseProject.Services;
+using System;
 using System.Diagnostics;
-using System.Text;
 using Xamarin.Forms;
 
-namespace KursahProject.ViewModels
+namespace FlashcardsCourseProject.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class CardSetDetailViewModel : BaseViewModel
     {
+        private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
+
         private string itemId;
         private string name;
         private string picture;

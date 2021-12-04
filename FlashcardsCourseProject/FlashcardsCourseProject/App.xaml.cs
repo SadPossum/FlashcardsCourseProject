@@ -1,8 +1,6 @@
 ﻿using FlashcardsCourseProject.Services;
-using FlashcardsCourseProject.Views;
 using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace FlashcardsCourseProject
 {
@@ -15,7 +13,7 @@ namespace FlashcardsCourseProject
             try
             {
                 string dbPath = DependencyService.Get<IPath>().GetDatabasePath(DBFILENAME);
-                DependencyService.RegisterSingleton<ApplicationContext>(new ApplicationContext(dbPath));
+                DependencyService.RegisterSingleton(new ApplicationContext(dbPath));
 
             }
             catch

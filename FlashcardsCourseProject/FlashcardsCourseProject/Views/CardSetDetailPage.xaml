@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="KursahProject.Views.CardSetDetailPage"
-             Title="{Binding Title}">
+<ContentPage
+    x:Class="FlashcardsCourseProject.Views.CardSetDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding Title}">
 
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Name:" FontSize="Medium" />
-        <Label Text="{Binding Name}" FontSize="Small"/>
-        <Label Text="Picture:" FontSize="Medium" />
-        <Label Text="{Binding Picture}" FontSize="Small"/>
+    <StackLayout Padding="15" Spacing="20">
+        <Label FontSize="Medium" Text="Name:" />
+        <Label FontSize="Small" Text="{Binding Name}" />
+        <Label FontSize="Medium" Text="Picture:" />
+        <Label FontSize="Small" Text="{Binding Picture}" />
     </StackLayout>
 
 </ContentPage>

@@ -1,7 +1,5 @@
-﻿using FlashcardsCourseProject.ViewModels;
-using FlashcardsCourseProject.Views;
+﻿using FlashcardsCourseProject.Views;
 using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace FlashcardsCourseProject

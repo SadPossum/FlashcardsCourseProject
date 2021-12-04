@@ -1,10 +1,5 @@
 ﻿using FlashcardsCourseProject.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Xamarin.Essentials;
 
 namespace FlashcardsCourseProject.Services
 {
@@ -18,7 +13,7 @@ namespace FlashcardsCourseProject.Services
         {
             _databasePath = databasePath;
         }
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite($"Filename={_databasePath}");

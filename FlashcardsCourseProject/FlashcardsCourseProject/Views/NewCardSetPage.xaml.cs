@@ -1,15 +1,9 @@
-﻿using KursahProject.Models;
-using KursahProject.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FlashcardsCourseProject.Models;
+using FlashcardsCourseProject.ViewModels;
 
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
-namespace KursahProject.Views
+namespace FlashcardsCourseProject.Views
 {
     public partial class NewCardSetPage : ContentPage
     {

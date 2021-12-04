@@ -1,18 +1,12 @@
-﻿using FlashcardsCourseProject.Models;
-using FlashcardsCourseProject.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
 
 namespace FlashcardsCourseProject.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Card> CardDataStore => DependencyService.Get<IDataStore<Card>>();
-        public IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
-
         bool isBusy = false;
         public bool IsBusy
         {

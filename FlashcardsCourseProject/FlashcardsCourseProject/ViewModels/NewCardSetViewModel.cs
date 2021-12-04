@@ -1,15 +1,14 @@
-﻿using KursahProject.Models;
-using KursahProject.Services;
+﻿using FlashcardsCourseProject.Models;
+using FlashcardsCourseProject.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace KursahProject.ViewModels
+namespace FlashcardsCourseProject.ViewModels
 {
     public class NewCardSetViewModel : BaseViewModel
     {
+        private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
+
         private string name;
         private string picture;
 

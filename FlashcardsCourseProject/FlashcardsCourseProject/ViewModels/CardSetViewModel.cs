@@ -1,5 +1,6 @@
-﻿using KursahProject.Models;
-using KursahProject.Views;
+﻿using FlashcardsCourseProject.Models;
+using FlashcardsCourseProject.Services;
+using FlashcardsCourseProject.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -7,10 +8,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 
 
-namespace KursahProject.ViewModels
+namespace FlashcardsCourseProject.ViewModels
 {
     public class CardSetViewModel : BaseViewModel
     {
+        private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
+
         private CardSet _selectedItem;
 
         public ObservableCollection<CardSet> Items { get; }
