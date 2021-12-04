@@ -1,4 +1,4 @@
-﻿using FlashcardsCourseProject.Models;
+using FlashcardsCourseProject.Models;
 using FlashcardsCourseProject.Services;
 using System;
 using System.Diagnostics;

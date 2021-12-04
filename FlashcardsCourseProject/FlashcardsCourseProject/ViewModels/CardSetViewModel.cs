@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-
 namespace FlashcardsCourseProject.ViewModels
 {
     public class CardSetViewModel : BaseViewModel

@@ -1,4 +1,4 @@
-﻿using FlashcardsCourseProject.Models;
+using FlashcardsCourseProject.Models;
 using FlashcardsCourseProject.Services;
 using System;
 using Xamarin.Forms;
@@ -11,7 +11,6 @@ namespace FlashcardsCourseProject.ViewModels
 
         private string name;
         private string picture;
-
         public NewCardSetViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);

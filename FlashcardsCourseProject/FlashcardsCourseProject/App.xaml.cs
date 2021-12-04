@@ -14,7 +14,6 @@ namespace FlashcardsCourseProject
             {
                 string dbPath = DependencyService.Get<IPath>().GetDatabasePath(DBFILENAME);
                 DependencyService.RegisterSingleton(new ApplicationContext(dbPath));
-
             }
             catch
             {
