@@ -1,8 +1,13 @@
-﻿namespace FlashcardsCourseProject.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace FlashcardsCourseProject.Models
 {
     public class Card
     {
-        public string Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public string Name { get; set; }
         public string FrontImage { get; set; }
         public string BackImage { get; set; }

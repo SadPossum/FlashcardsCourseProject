@@ -36,7 +36,7 @@ namespace FlashcardsCourseProject.Services
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(string id)
+        public async Task<bool> DeleteItemAsync(int id)
         {
             var oldItem = _items.Where(a => a.Id == id).FirstOrDefault();
             _items.Remove(oldItem);
@@ -46,7 +46,7 @@ namespace FlashcardsCourseProject.Services
             return await Task.FromResult(true);
         }
 
-        public async Task<Card> GetItemAsync(string id)
+        public async Task<Card> GetItemAsync(int id)
         {
             return await Task.FromResult(_items.FirstOrDefault(a => a.Id == id));
         }

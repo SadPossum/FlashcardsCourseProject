@@ -17,36 +17,33 @@ namespace FlashcardsCourseProject.Services
 
         public async Task<bool> AddItemAsync(CardSet item)
         {
-            _items.Add(item);
             _db.CardSet.Add(item);
             _db.SaveChanges();
+
             return await Task.FromResult(true);
         }
 
         public async Task<bool> UpdateItemAsync(CardSet item)
         {
             var oldItem = _items.Where(a => a.Id == item.Id).FirstOrDefault();
-            _items.Remove(oldItem);
-            _items.Add(item);
-            _db.CardSet.Update(item);
+            oldItem.Name = item.Name;
+            oldItem.Picture = item.Picture;
+            _db.CardSet.Update(oldItem);
             _db.SaveChanges();
-
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(string id)
+        public async Task<bool> DeleteItemAsync(int id)
         {
             var oldItem = _items.Where(a => a.Id == id).FirstOrDefault();
-            _items.Remove(oldItem);
             _db.CardSet.Remove(oldItem);
             _db.SaveChanges();
 
-
             return await Task.FromResult(true);
         }
 
-        public async Task<CardSet> GetItemAsync(string id)
+        public async Task<CardSet> GetItemAsync(int id)
         {
             return await Task.FromResult(_items.FirstOrDefault(a => a.Id == id));
         }
