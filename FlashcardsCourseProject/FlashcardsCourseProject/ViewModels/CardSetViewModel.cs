@@ -18,6 +18,7 @@ namespace FlashcardsCourseProject.ViewModels
         public ObservableCollection<CardSet> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
+        public Command<CardSet> EditItemCommand { get; }
         public Command<CardSet> CardSetTapped { get; }
 
         public CardSetViewModel()
@@ -29,6 +30,8 @@ namespace FlashcardsCourseProject.ViewModels
             CardSetTapped = new Command<CardSet>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
+
+            EditItemCommand = new Command<CardSet>(OnEditItem);
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -72,7 +75,16 @@ namespace FlashcardsCourseProject.ViewModels
 
         private async void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewCardSetPage));
+            await Shell.Current.GoToAsync($"{nameof(EditCardSetPage)}");
+        }
+
+        async void OnEditItem(CardSet cardSet)
+        {
+            if (cardSet == null)
+                return;
+
+            // This will push the ItemDetailPage onto the navigation stack
+            await Shell.Current.GoToAsync($"{nameof(EditCardSetPage)}?{nameof(EditCardSetViewModel.ItemId)}={cardSet.Id}");
         }
 
         async void OnItemSelected(CardSet cardSet)

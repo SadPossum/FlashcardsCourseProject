@@ -10,7 +10,7 @@ namespace FlashcardsCourseProject
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(CardSetDetailPage), typeof(CardSetDetailPage));
-            Routing.RegisterRoute(nameof(NewCardSetPage), typeof(NewCardSetPage));
+            Routing.RegisterRoute(nameof(EditCardSetPage), typeof(EditCardSetPage));
 
         }
 

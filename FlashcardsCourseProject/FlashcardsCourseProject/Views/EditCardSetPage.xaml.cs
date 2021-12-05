@@ -5,13 +5,13 @@ using Xamarin.Forms;
 
 namespace FlashcardsCourseProject.Views
 {
-    public partial class NewCardSetPage : ContentPage
+    public partial class EditCardSetPage : ContentPage
     {
         public CardSet Item { get; set; }
-        public NewCardSetPage()
+        public EditCardSetPage()
         {
             InitializeComponent();
-            BindingContext = new NewCardSetViewModel();
+            BindingContext = new EditCardSetViewModel();
         }
     }
 }
