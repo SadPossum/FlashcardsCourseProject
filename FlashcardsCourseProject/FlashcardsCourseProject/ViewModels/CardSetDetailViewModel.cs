@@ -11,7 +11,7 @@ namespace FlashcardsCourseProject.ViewModels
     {
         private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
 
-        private string _itemId;
+        private int? _itemId;
         private string _name;
         private string _picture;
 
@@ -31,16 +31,23 @@ namespace FlashcardsCourseProject.ViewModels
         {
             get
             {
-                return _itemId;
+                return _itemId.ToString();
             }
             set
             {
-                _itemId = value;
-                LoadItemId(value);
+                if (int.TryParse(value, out int res))
+                {
+                    _itemId = res;
+                    LoadItemId(res);
+                }
+                else
+                {
+                    _itemId = null;
+                }
             }
         }
 
-        public async void LoadItemId(string itemId)
+        public async void LoadItemId(int itemId)
         {
             try
             {

@@ -11,7 +11,7 @@ namespace FlashcardsCourseProject.ViewModels
     {
         private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
 
-        private string _itemId;
+        private int? _itemId;
         private string _name;
         private string _picture;
         public EditCardSetViewModel()
@@ -44,15 +44,22 @@ namespace FlashcardsCourseProject.ViewModels
         {
             get
             {
-                return _itemId;
+                return _itemId.ToString();
             }
             set
             {
-                _itemId = value;
-
-                if (_itemId != null)
+                if (int.TryParse(value, out int res))
                 {
-                    LoadItemId(value);
+                    _itemId = res;
+
+                    if (_itemId != null)
+                    {
+                        LoadItemId(res);
+                    }
+                }
+                else
+                {
+                    _itemId = null;
                 }
             }
         }
@@ -74,14 +81,14 @@ namespace FlashcardsCourseProject.ViewModels
                 Picture = Picture
             };
 
-            if (ItemId != null)
+            if (_itemId != null)
             {
-                newItem.Id = ItemId;
+                newItem.Id = (int)_itemId;
                 await CardSetDataStore.UpdateItemAsync(newItem);
             }
             else
             {
-                newItem.Id = Guid.NewGuid().ToString();
+                newItem.Id = 0;
                 await CardSetDataStore.AddItemAsync(newItem);
             }
 
@@ -89,7 +96,7 @@ namespace FlashcardsCourseProject.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
-        public async void LoadItemId(string itemId)
+        public async void LoadItemId(int itemId)
         {
             try
             {
