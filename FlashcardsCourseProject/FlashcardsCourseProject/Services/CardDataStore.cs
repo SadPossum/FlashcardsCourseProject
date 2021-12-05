@@ -9,55 +9,55 @@ namespace FlashcardsCourseProject.Services
     public class CardDataStore : IDataStore<Card>
     {
 
-        private List<Card> items;
-        public ApplicationContext db => DependencyService.Get<ApplicationContext>();
+        private List<Card> _items;
+        private ApplicationContext _db => DependencyService.Get<ApplicationContext>();
 
         public CardDataStore()
         {
-            db.Database.EnsureCreated();
+            _db.Database.EnsureCreated();
         }
         public async Task<bool> AddItemAsync(Card item)
         {
-            items.Add(item);
-            db.Card.Add(item);
-            db.SaveChanges();
+            _items.Add(item);
+            _db.Card.Add(item);
+            _db.SaveChanges();
 
             return await Task.FromResult(true);
         }
 
         public async Task<bool> UpdateItemAsync(Card item)
         {
-            var oldItem = items.Where(a => a.Id == item.Id).FirstOrDefault();
-            items.Remove(oldItem);
-            items.Add(item);
-            db.Card.Update(item);
-            db.SaveChanges();
+            var oldItem = _items.Where(a => a.Id == item.Id).FirstOrDefault();
+            _items.Remove(oldItem);
+            _items.Add(item);
+            _db.Card.Update(item);
+            _db.SaveChanges();
 
             return await Task.FromResult(true);
         }
 
         public async Task<bool> DeleteItemAsync(string id)
         {
-            var oldItem = items.Where(a => a.Id == id).FirstOrDefault();
-            items.Remove(oldItem);
-            db.Card.Remove(oldItem);
-            db.SaveChanges();
+            var oldItem = _items.Where(a => a.Id == id).FirstOrDefault();
+            _items.Remove(oldItem);
+            _db.Card.Remove(oldItem);
+            _db.SaveChanges();
 
             return await Task.FromResult(true);
         }
 
         public async Task<Card> GetItemAsync(string id)
         {
-            return await Task.FromResult(items.FirstOrDefault(a => a.Id == id));
+            return await Task.FromResult(_items.FirstOrDefault(a => a.Id == id));
         }
 
         public async Task<IEnumerable<Card>> GetItemsAsync(bool forceRefresh = false)
         {
             if (forceRefresh == true)
             {
-                items = db.Card.ToList();
+                _items = _db.Card.ToList();
             }
-            return await Task.FromResult(items);
+            return await Task.FromResult(_items);
         }
     }
 }

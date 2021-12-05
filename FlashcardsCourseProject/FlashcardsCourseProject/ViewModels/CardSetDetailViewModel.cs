@@ -11,32 +11,31 @@ namespace FlashcardsCourseProject.ViewModels
     {
         private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
 
-        private string itemId;
-        private string name;
-        private string picture;
-        public string Id { get; set; }
+        private string _itemId;
+        private string _name;
+        private string _picture;
 
         public string Name
         {
-            get => name;
-            set => SetProperty(ref name, value);
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
 
         public string Picture
         {
-            get => picture;
-            set => SetProperty(ref picture, value);
+            get => _picture;
+            set => SetProperty(ref _picture, value);
         }
 
         public string ItemId
         {
             get
             {
-                return itemId;
+                return _itemId;
             }
             set
             {
-                itemId = value;
+                _itemId = value;
                 LoadItemId(value);
             }
         }
@@ -46,7 +45,6 @@ namespace FlashcardsCourseProject.ViewModels
             try
             {
                 var item = await CardSetDataStore.GetItemAsync(itemId);
-                Id = item.Id;
                 Name = item.Name;
                 Picture = item.Picture;
             }
