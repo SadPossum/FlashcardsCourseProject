@@ -24,7 +24,9 @@ namespace FlashcardsCourseProject.ViewModels
         public CardSetViewModel()
         {
             Title = "Наборы карточек";
+
             Items = new ObservableCollection<CardSet>();
+
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             CardSetTapped = new Command<CardSet>(OnItemSelected);
@@ -44,7 +46,13 @@ namespace FlashcardsCourseProject.ViewModels
                 var items = await CardSetDataStore.GetItemsAsync();
                 foreach (var item in items)
                 {
-                    Items.Add(item);
+                    var t = new CardSet()
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                        Picture = item.Picture,
+                    };
+                    Items.Add(t);
                 }
             }
             catch (Exception ex)
