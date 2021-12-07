@@ -42,20 +42,13 @@ namespace FlashcardsCourseProject.ViewModels
 
         public string ItemId
         {
-            get
-            {
-                return _itemId.ToString();
-            }
             set
             {
                 if (int.TryParse(value, out int res))
                 {
                     _itemId = res;
 
-                    if (_itemId != null)
-                    {
-                        LoadItemId(res);
-                    }
+                    LoadItemId(res);
                 }
                 else
                 {

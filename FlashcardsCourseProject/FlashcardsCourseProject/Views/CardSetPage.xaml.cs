@@ -6,7 +6,7 @@ namespace FlashcardsCourseProject.Views
 {
     public partial class CardSetPage : ContentPage
     {
-        private CardSetViewModel _cardsetView;
+        private readonly CardSetViewModel _cardsetView;
         public CardSetPage()
         {
             InitializeComponent();
