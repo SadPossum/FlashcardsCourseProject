@@ -9,6 +9,6 @@ namespace FlashcardsCourseProject.Services
         Task<bool> UpdateItemAsync(T item);
         Task<bool> DeleteItemAsync(int id);
         Task<T> GetItemAsync(int id);
-        Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+        Task<IEnumerable<T>> GetItemsAsync();
     }
 }

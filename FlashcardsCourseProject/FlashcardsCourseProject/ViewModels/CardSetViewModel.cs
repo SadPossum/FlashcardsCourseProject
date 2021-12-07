@@ -41,7 +41,7 @@ namespace FlashcardsCourseProject.ViewModels
             try
             {
                 Items.Clear();
-                var items = await CardSetDataStore.GetItemsAsync(true);
+                var items = await CardSetDataStore.GetItemsAsync();
                 foreach (var item in items)
                 {
                     Items.Add(item);

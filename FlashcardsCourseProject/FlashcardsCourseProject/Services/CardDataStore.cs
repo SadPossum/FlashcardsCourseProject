@@ -8,8 +8,6 @@ namespace FlashcardsCourseProject.Services
 {
     public class CardDataStore : IDataStore<Card>
     {
-
-        private List<Card> _items;
         private ApplicationContext _db => DependencyService.Get<ApplicationContext>();
 
         public CardDataStore()
@@ -18,7 +16,6 @@ namespace FlashcardsCourseProject.Services
         }
         public async Task<bool> AddItemAsync(Card item)
         {
-            _items.Add(item);
             _db.Card.Add(item);
             _db.SaveChanges();
 
@@ -27,10 +24,12 @@ namespace FlashcardsCourseProject.Services
 
         public async Task<bool> UpdateItemAsync(Card item)
         {
-            var oldItem = _items.Where(a => a.Id == item.Id).FirstOrDefault();
-            _items.Remove(oldItem);
-            _items.Add(item);
-            _db.Card.Update(item);
+            var oldItem = _db.Card.Where(a => a.Id == item.Id).FirstOrDefault();
+            oldItem.FrontText = item.FrontText;
+            oldItem.BackImage = item.BackImage;
+            oldItem.BackText = item.BackText;
+            oldItem.FrontImage = item.FrontImage;
+            _db.Card.Update(oldItem);
             _db.SaveChanges();
 
             return await Task.FromResult(true);
@@ -38,8 +37,7 @@ namespace FlashcardsCourseProject.Services
 
         public async Task<bool> DeleteItemAsync(int id)
         {
-            var oldItem = _items.Where(a => a.Id == id).FirstOrDefault();
-            _items.Remove(oldItem);
+            var oldItem = _db.Card.Where(a => a.Id == id).FirstOrDefault();
             _db.Card.Remove(oldItem);
             _db.SaveChanges();
 
@@ -48,16 +46,12 @@ namespace FlashcardsCourseProject.Services
 
         public async Task<Card> GetItemAsync(int id)
         {
-            return await Task.FromResult(_items.FirstOrDefault(a => a.Id == id));
+            return await Task.FromResult(_db.Card.FirstOrDefault(a => a.Id == id));
         }
 
-        public async Task<IEnumerable<Card>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Card>> GetItemsAsync()
         {
-            if (forceRefresh == true)
-            {
-                _items = _db.Card.ToList();
-            }
-            return await Task.FromResult(_items);
+            return await Task.FromResult(_db.Card.ToList());
         }
     }
 }

@@ -8,7 +8,6 @@ namespace FlashcardsCourseProject.Services
 {
     public class CardSetDataStore : IDataStore<CardSet>
     {
-        private List<CardSet> _items;
         private ApplicationContext _db => DependencyService.Get<ApplicationContext>();
         public CardSetDataStore()
         {
@@ -25,7 +24,7 @@ namespace FlashcardsCourseProject.Services
 
         public async Task<bool> UpdateItemAsync(CardSet item)
         {
-            var oldItem = _items.Where(a => a.Id == item.Id).FirstOrDefault();
+            var oldItem = _db.CardSet.Where(a => a.Id == item.Id).FirstOrDefault();
             oldItem.Name = item.Name;
             oldItem.Picture = item.Picture;
             _db.CardSet.Update(oldItem);
@@ -36,7 +35,7 @@ namespace FlashcardsCourseProject.Services
 
         public async Task<bool> DeleteItemAsync(int id)
         {
-            var oldItem = _items.Where(a => a.Id == id).FirstOrDefault();
+            var oldItem = _db.CardSet.Where(a => a.Id == id).FirstOrDefault();
             _db.CardSet.Remove(oldItem);
             _db.SaveChanges();
 
@@ -45,16 +44,12 @@ namespace FlashcardsCourseProject.Services
 
         public async Task<CardSet> GetItemAsync(int id)
         {
-            return await Task.FromResult(_items.FirstOrDefault(a => a.Id == id));
+            return await Task.FromResult(_db.CardSet.FirstOrDefault(a => a.Id == id));
         }
 
-        public async Task<IEnumerable<CardSet>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<CardSet>> GetItemsAsync()
         {
-            if (forceRefresh == true)
-            {
-                _items = _db.CardSet.ToList();
-            }
-            return await Task.FromResult(_items);
+            return await Task.FromResult(_db.CardSet.ToList());
         }
     }
 }
