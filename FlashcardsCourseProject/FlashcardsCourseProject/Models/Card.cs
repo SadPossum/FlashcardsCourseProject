@@ -12,8 +12,10 @@ namespace FlashcardsCourseProject.Models
         public string FrontImage { get; set; }
         public string BackImage { get; set; }
         public string BackText { get; set; }
-        public int CardSetId { get; set; }
-        public CardSet CardSet { get; set; }
+
+        [ForeignKey("CardSetId")]
+        public int CardSetId { get; set; } // Внешний ключ
+        public CardSet CardSet { get; set; } // Навигационное ствойство
 
     }
 }
