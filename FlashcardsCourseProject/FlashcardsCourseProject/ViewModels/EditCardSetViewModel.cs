@@ -111,7 +111,7 @@ namespace FlashcardsCourseProject.ViewModels
                 Bitmap img = new Bitmap(photo.FullPath);
                 img.Save(Path.Combine(FileSystem.AppDataDirectory, photo.FileName), ImageFormat.Png);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Error: {ex.Message}");
             }

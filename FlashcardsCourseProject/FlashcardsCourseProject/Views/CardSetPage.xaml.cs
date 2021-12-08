@@ -6,18 +6,18 @@ namespace FlashcardsCourseProject.Views
 {
     public partial class CardSetPage : ContentPage
     {
-        private readonly CardSetViewModel _cardsetView;
+        private readonly CardSetViewModel _cardSetViewModel;
         public CardSetPage()
         {
             InitializeComponent();
 
-            BindingContext = _cardsetView = new CardSetViewModel();
+            BindingContext = _cardSetViewModel = new CardSetViewModel();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _cardsetView.OnAppearing();
+            _cardSetViewModel.OnAppearing();
         }
     }
 }

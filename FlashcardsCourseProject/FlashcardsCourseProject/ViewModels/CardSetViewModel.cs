@@ -2,6 +2,7 @@
 using FlashcardsCourseProject.Services;
 using FlashcardsCourseProject.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -43,16 +44,16 @@ namespace FlashcardsCourseProject.ViewModels
             try
             {
                 Items.Clear();
-                var items = await CardSetDataStore.GetItemsAsync();
-                foreach (var item in items)
+                IEnumerable<CardSet> items = await CardSetDataStore.GetItemsAsync();
+                foreach (CardSet item in items)
                 {
-                    var t = new CardSet()
+                    CardSet temp = new CardSet()
                     {
                         Id = item.Id,
                         Name = item.Name,
                         PictureId = item.PictureId,
                     };
-                    Items.Add(t);
+                    Items.Add(temp);
                 }
             }
             catch (Exception ex)

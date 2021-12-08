@@ -7,7 +7,7 @@ namespace FlashcardsCourseProject.Services
     {
         public DbSet<CardSet> CardSet { get; set; }
         public DbSet<Card> Card { get; set; }
-        public DbSet<FileImage> FileImage {get;set;}
+        public DbSet<FileImage> FileImage { get; set; }
         private readonly string _databasePath;
 
         public ApplicationContext(string databasePath)
