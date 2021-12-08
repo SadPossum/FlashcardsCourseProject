@@ -13,6 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="System.Drawing.Common">
+      <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v1.0\Facades\System.Drawing.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\EditCardSetPage.xaml.cs">
       <DependentUpon>EditCardSetPage.xaml</DependentUpon>
     </Compile>

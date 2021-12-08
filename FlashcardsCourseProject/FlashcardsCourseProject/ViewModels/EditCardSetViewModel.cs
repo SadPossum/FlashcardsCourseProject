@@ -2,6 +2,10 @@ using FlashcardsCourseProject.Models;
 using FlashcardsCourseProject.Services;
 using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace FlashcardsCourseProject.ViewModels
@@ -10,7 +14,7 @@ namespace FlashcardsCourseProject.ViewModels
     public class EditCardSetViewModel : BaseViewModel
     {
         private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
-        //private IDataStore<FileImage> FileImageDataStore => DependencyService.Get<IDataStore<FileImage>>();
+        private IDataStore<FileImage> FileImageDataStore => DependencyService.Get<IDataStore<FileImage>>();
 
 
         private int? _itemId;
@@ -20,7 +24,7 @@ namespace FlashcardsCourseProject.ViewModels
         {
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
-            // PickImageCommand = new Command(PickImage);
+            PickImageCommand = new Command(PickImageAsync);
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
         }
@@ -92,10 +96,27 @@ namespace FlashcardsCourseProject.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
-        //private async int PickImage()
-        //{
+        private async void PickImageAsync()
+        {
+            try
+            {
+                var photo = await MediaPicker.PickPhotoAsync();
+                FileImage image = new FileImage
+                {
+                    Name = photo.FileName,
+                    Path = photo.FullPath
+                };
 
-        //}
+                await FileImageDataStore.AddItemAsync(image);
+                Bitmap img = new Bitmap(photo.FullPath);
+                img.Save(Path.Combine(FileSystem.AppDataDirectory, photo.FileName), ImageFormat.Png);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception($"Error: {ex.Message}");
+            }
+
+        }
 
         public async void LoadItemId(int itemId)
         {
