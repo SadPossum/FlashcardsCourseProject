@@ -11,7 +11,7 @@ namespace FlashcardsCourseProject.Services
         private ApplicationContext _db => DependencyService.Get<ApplicationContext>();
         public CardSetDataStore()
         {
-            _db.Database.EnsureCreated();
+            //_db.Database.EnsureCreated();
         }
 
         public async Task<bool> AddItemAsync(CardSet item)
@@ -26,7 +26,7 @@ namespace FlashcardsCourseProject.Services
         {
             var oldItem = _db.CardSet.Where(a => a.Id == item.Id).FirstOrDefault();
             oldItem.Name = item.Name;
-            oldItem.Picture = item.Picture;
+            oldItem.PictureId = item.PictureId;
             _db.CardSet.Update(oldItem);
             _db.SaveChanges();
 
@@ -47,7 +47,7 @@ namespace FlashcardsCourseProject.Services
             return await Task.FromResult(_db.CardSet.FirstOrDefault(a => a.Id == id));
         }
 
-        public async Task<IEnumerable<CardSet>> GetItemsAsync()
+        public async Task<IEnumerable<CardSet>> GetItemsAsync(int? cardId = null)
         {
             return await Task.FromResult(_db.CardSet.ToList());
         }

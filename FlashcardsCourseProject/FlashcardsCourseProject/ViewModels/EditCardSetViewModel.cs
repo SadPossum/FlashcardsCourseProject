@@ -10,22 +10,24 @@ namespace FlashcardsCourseProject.ViewModels
     public class EditCardSetViewModel : BaseViewModel
     {
         private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
+        //private IDataStore<FileImage> FileImageDataStore => DependencyService.Get<IDataStore<FileImage>>();
+
 
         private int? _itemId;
         private string _name;
-        private string _picture;
+        private int _pictureId;
         public EditCardSetViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
+            // PickImageCommand = new Command(PickImage);
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
         }
 
         private bool ValidateSave()
         {
-            return !string.IsNullOrWhiteSpace(_name)
-                && !string.IsNullOrWhiteSpace(_picture);
+            return !string.IsNullOrWhiteSpace(_name);
         }
 
         public string Name
@@ -34,10 +36,10 @@ namespace FlashcardsCourseProject.ViewModels
             set => SetProperty(ref _name, value);
         }
 
-        public string Picture
+        public int PictureId
         {
-            get => _picture;
-            set => SetProperty(ref _picture, value);
+            get => _pictureId;
+            set => SetProperty(ref _pictureId, value);
         }
 
         public string ItemId
@@ -59,6 +61,7 @@ namespace FlashcardsCourseProject.ViewModels
 
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
+        public Command PickImageCommand { get; }
 
         private async void OnCancel()
         {
@@ -71,7 +74,7 @@ namespace FlashcardsCourseProject.ViewModels
             CardSet newItem = new CardSet
             {
                 Name = Name,
-                Picture = Picture
+                PictureId = PictureId
             };
 
             if (_itemId != null)
@@ -89,13 +92,18 @@ namespace FlashcardsCourseProject.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
+        //private async int PickImage()
+        //{
+
+        //}
+
         public async void LoadItemId(int itemId)
         {
             try
             {
                 var item = await CardSetDataStore.GetItemAsync(itemId);
                 Name = item.Name;
-                Picture = item.Picture;
+                PictureId = item.PictureId;
             }
             catch (Exception)
             {

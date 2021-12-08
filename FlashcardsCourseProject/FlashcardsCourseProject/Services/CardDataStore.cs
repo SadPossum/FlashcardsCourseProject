@@ -26,9 +26,9 @@ namespace FlashcardsCourseProject.Services
         {
             var oldItem = _db.Card.Where(a => a.Id == item.Id).FirstOrDefault();
             oldItem.FrontText = item.FrontText;
-            oldItem.BackImage = item.BackImage;
+            oldItem.BackImageId = item.BackImageId;
             oldItem.BackText = item.BackText;
-            oldItem.FrontImage = item.FrontImage;
+            oldItem.FrontImageId = item.FrontImageId;
             _db.Card.Update(oldItem);
             _db.SaveChanges();
 
@@ -49,7 +49,7 @@ namespace FlashcardsCourseProject.Services
             return await Task.FromResult(_db.Card.FirstOrDefault(a => a.Id == id));
         }
 
-        public async Task<IEnumerable<Card>> GetItemsAsync()
+        public async Task<IEnumerable<Card>> GetItemsAsync(int? cardSetId)
         {
             return await Task.FromResult(_db.Card.ToList());
         }
