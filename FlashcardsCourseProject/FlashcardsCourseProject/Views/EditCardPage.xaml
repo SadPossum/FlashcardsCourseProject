@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="FlashcardsCourseProject.Views.EditCardPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    Title="новый набор карточек"
+    ios:Page.UseSafeArea="true"
+    Shell.PresentationMode="ModalAnimated">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="15" Spacing="3">
+                <Grid Padding="10" HorizontalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="240" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+
+                    <Frame
+                        Grid.RowSpan="6"
+                        Grid.ColumnSpan="6"
+                        Padding="0"
+                        CornerRadius="20"
+                        IsClippedToBounds="True">
+                        <Image
+                            Aspect="AspectFill"
+                            Background="lightgray"
+                            HeightRequest="60"
+                            Source="{Binding FrontImagePath}"
+                            WidthRequest="60" />
+                    </Frame>
+
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="4"
+                        FontAttributes="Bold"
+                        HorizontalTextAlignment="Center"
+                        LineBreakMode="TailTruncation"
+                        Text="{Binding FrontText}"
+                        TextColor="{StaticResource Primary}"
+                        VerticalTextAlignment="Center" />
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PickFrontImageCommand}" NumberOfTapsRequired="1" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+
+                <Label FontSize="Medium" Text="Name" />
+                <Entry FontSize="Medium" Text="{Binding FrontText, Mode=TwoWay}" />
+
+                <Grid Padding="10" HorizontalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="240" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+
+                    <Frame
+                        Grid.RowSpan="6"
+                        Grid.ColumnSpan="6"
+                        Padding="0"
+                        CornerRadius="20"
+                        IsClippedToBounds="True">
+                        <Image
+                            Aspect="AspectFill"
+                            Background="lightgray"
+                            HeightRequest="60"
+                            Source="{Binding BackImagePath}"
+                            WidthRequest="60" />
+                    </Frame>
+
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="4"
+                        FontAttributes="Bold"
+                        HorizontalTextAlignment="Center"
+                        LineBreakMode="TailTruncation"
+                        Text="{Binding BackText}"
+                        TextColor="{StaticResource Primary}"
+                        VerticalTextAlignment="Center" />
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PickBackImageCommand}" NumberOfTapsRequired="1" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+
+                <Label FontSize="Medium" Text="Name" />
+                <Entry FontSize="Medium" Text="{Binding BackText, Mode=TwoWay}" />
+
+                <StackLayout Orientation="Horizontal">
+                    <Button
+                        BorderWidth="1.5"
+                        Command="{Binding CancelCommand}"
+                        CornerRadius="15"
+                        HorizontalOptions="FillAndExpand"
+                        Text="отмена" />
+                    <Button
+                        BorderWidth="1.5"
+                        Command="{Binding SaveCommand}"
+                        CornerRadius="15"
+                        HorizontalOptions="FillAndExpand"
+                        Text="сохранить" />
+                </StackLayout>
+                <Button
+                    BackgroundColor="Red"
+                    BorderWidth="1.5"
+                    Command="{Binding DeleteCommand}"
+                    CornerRadius="15"
+                    HorizontalOptions="FillAndExpand"
+                    Text="удалить" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+
+</ContentPage>

@@ -4,12 +4,12 @@ using Xamarin.Forms;
 
 namespace FlashcardsCourseProject.Views
 {
-    public partial class CardSetDetailPage : ContentPage
+    public partial class CardDetailPage : ContentPage
     {
-        public CardSetDetailPage()
+        public CardDetailPage()
         {
             InitializeComponent();
-            BindingContext = new CardSetDetailViewModel();
+            BindingContext = new CardDetailViewModel();
         }
     }
 }

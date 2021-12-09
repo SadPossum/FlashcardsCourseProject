@@ -9,8 +9,10 @@ namespace FlashcardsCourseProject
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(CardSetDetailPage), typeof(CardSetDetailPage));
+            Routing.RegisterRoute(nameof(CardDetailPage), typeof(CardDetailPage));
             Routing.RegisterRoute(nameof(EditCardSetPage), typeof(EditCardSetPage));
+            Routing.RegisterRoute(nameof(CardPage), typeof(CardPage));
+            Routing.RegisterRoute(nameof(EditCardPage), typeof(EditCardPage));
 
         }
 

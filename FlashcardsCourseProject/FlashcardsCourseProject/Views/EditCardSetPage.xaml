@@ -11,21 +11,21 @@
         <StackLayout Padding="15" Spacing="3">
             <Grid Padding="10" HorizontalOptions="Center">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="5" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="240" />
+                    <RowDefinition Height="50" />
                     <RowDefinition Height="40" />
-                    <RowDefinition Height="120" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="15" />
-                    <RowDefinition Height="15" />
+                    <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="30" />
-                    <ColumnDefinition Width="25" />
-                    <ColumnDefinition Width="40" />
-                    <ColumnDefinition Width="40" />
-                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="10" />
                 </Grid.ColumnDefinitions>
 
                 <Frame
@@ -38,7 +38,7 @@
                         Aspect="AspectFill"
                         Background="lightgray"
                         HeightRequest="60"
-                        Source="{Binding Path=PicturePath}"
+                        Source="{Binding PicturePath}"
                         WidthRequest="60" />
                 </Frame>
 
@@ -50,7 +50,8 @@
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     Text="{Binding Name}"
-                    TextColor="{StaticResource Primary}" />
+                    TextColor="{StaticResource Primary}"
+                    VerticalTextAlignment="Center" />
 
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PickImageCommand}" NumberOfTapsRequired="1" />
@@ -74,6 +75,13 @@
                     HorizontalOptions="FillAndExpand"
                     Text="сохранить" />
             </StackLayout>
+            <Button
+                BackgroundColor="Red"
+                BorderWidth="1.5"
+                Command="{Binding DeleteCommand}"
+                CornerRadius="15"
+                HorizontalOptions="FillAndExpand"
+                Text="удалить" />
         </StackLayout>
     </ContentPage.Content>
 

@@ -1,16 +1,17 @@
 ﻿using FlashcardsCourseProject.Models;
 using FlashcardsCourseProject.ViewModels;
+using System;
 using Xamarin.Forms;
 
 namespace FlashcardsCourseProject.Views
 {
-    public partial class EditCardSetPage : ContentPage
+    public partial class EditCardPage : ContentPage
     {
-        public CardSet Item { get; set; }
-        public EditCardSetPage()
+        public Card Item { get; set; }
+        public EditCardPage()
         {
             InitializeComponent();
-            BindingContext = new EditCardSetViewModel();
+            BindingContext = new EditCardViewModel();
         }
     }
 }

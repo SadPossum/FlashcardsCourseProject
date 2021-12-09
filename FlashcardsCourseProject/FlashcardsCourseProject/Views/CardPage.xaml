@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="FlashcardsCourseProject.Views.CardSetPage"
+    x:Class="FlashcardsCourseProject.Views.CardPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:FlashcardsCourseProject.ViewModels"
@@ -16,7 +16,7 @@
         https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
     <RefreshView
-        x:DataType="local:CardSetViewModel"
+        x:DataType="local:CardViewModel"
         Command="{Binding LoadItemsCommand}"
         IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView
@@ -26,7 +26,7 @@
             SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10" x:DataType="model:CardSet">
+                    <Grid Padding="10" x:DataType="model:Card">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="5" />
                             <RowDefinition Height="40" />
@@ -54,7 +54,9 @@
                             <Image
                                 Aspect="AspectFill"
                                 Background="lightgray"
-                                Source="{Binding PicturePath}" />
+                                HeightRequest="60"
+                                Source="{Binding FrontImagePath}"
+                                WidthRequest="60" />
                         </Frame>
 
                         <Button
@@ -63,7 +65,7 @@
                             BackgroundColor="Transparent"
                             BorderColor="{StaticResource Primary}"
                             BorderWidth="1.5"
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:CardSetViewModel}}, Path=EditItemCommand}"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:CardViewModel}}, Path=EditItemCommand}"
                             CommandParameter="{Binding .}"
                             CornerRadius="15"
                             Text="/"
@@ -76,13 +78,13 @@
                             FontAttributes="Bold"
                             HorizontalTextAlignment="Center"
                             LineBreakMode="TailTruncation"
-                            Text="{Binding Name}"
+                            Text="{Binding FrontText}"
                             TextColor="{StaticResource Primary}"
                             VerticalTextAlignment="Center" />
 
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:CardSetViewModel}}, Path=ItemTapped}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:CardViewModel}}, Path=ItemTapped}"
                                 CommandParameter="{Binding .}"
                                 NumberOfTapsRequired="1" />
                         </Grid.GestureRecognizers>

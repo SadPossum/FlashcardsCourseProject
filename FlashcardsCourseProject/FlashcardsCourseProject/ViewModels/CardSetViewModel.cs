@@ -20,7 +20,7 @@ namespace FlashcardsCourseProject.ViewModels
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<CardSet> EditItemCommand { get; }
-        public Command<CardSet> CardSetTapped { get; }
+        public Command<CardSet> ItemTapped { get; }
 
         public CardSetViewModel()
         {
@@ -30,7 +30,7 @@ namespace FlashcardsCourseProject.ViewModels
 
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            CardSetTapped = new Command<CardSet>(OnItemSelected);
+            ItemTapped = new Command<CardSet>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
 
@@ -102,7 +102,7 @@ namespace FlashcardsCourseProject.ViewModels
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(CardSetDetailPage)}?{nameof(CardSetDetailViewModel.ItemId)}={cardSet.Id}");
+            await Shell.Current.GoToAsync($"{nameof(CardPage)}?{nameof(CardViewModel.ParentId)}={cardSet.Id}&{nameof(Title)}={cardSet.Name}");
         }
     }
 }

@@ -97,7 +97,8 @@ namespace FlashcardsCourseProject.ViewModels
         private async void PickImageAsync()
         {
             FileResult photo = await MediaPicker.PickPhotoAsync();
-            _picturePath = photo.FullPath;
+            if(photo != null)
+                PicturePath = photo.FullPath;
             //Bitmap img = new Bitmap(photo.FullPath);
             //img.Save(Path.Combine(FileSystem.AppDataDirectory, photo.FileName), ImageFormat.Png);
 

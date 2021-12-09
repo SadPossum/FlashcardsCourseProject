@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Xamarin.Forms;
 
 namespace FlashcardsCourseProject.ViewModels
 {
+    [QueryProperty(nameof(Title), nameof(Title))]
     public class BaseViewModel : INotifyPropertyChanged
     {
         bool isBusy = false;
