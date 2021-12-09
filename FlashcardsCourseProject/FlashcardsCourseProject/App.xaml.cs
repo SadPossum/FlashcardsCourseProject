@@ -22,7 +22,6 @@ namespace FlashcardsCourseProject
 
             DependencyService.Register<CardSetDataStore>();
             DependencyService.Register<CardDataStore>();
-            DependencyService.Register<FileImageDataStore>();
             MainPage = new AppShell();
         }
 

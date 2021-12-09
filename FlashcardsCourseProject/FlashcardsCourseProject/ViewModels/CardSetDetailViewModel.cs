@@ -13,7 +13,7 @@ namespace FlashcardsCourseProject.ViewModels
 
         private int? _itemId;
         private string _name;
-        private int _pictureId;
+        private string _picturePath;
 
         public string Name
         {
@@ -21,10 +21,10 @@ namespace FlashcardsCourseProject.ViewModels
             set => SetProperty(ref _name, value);
         }
 
-        public int PictureId
+        public string PicturePath
         {
-            get => _pictureId;
-            set => SetProperty(ref _pictureId, value);
+            get => _picturePath;
+            set => SetProperty(ref _picturePath, value);
         }
 
         public string ItemId
@@ -53,7 +53,7 @@ namespace FlashcardsCourseProject.ViewModels
             {
                 var item = await CardSetDataStore.GetItemAsync(itemId);
                 Name = item.Name;
-                PictureId = item.PictureId;
+                PicturePath = item.PicturePath;
             }
             catch (Exception)
             {

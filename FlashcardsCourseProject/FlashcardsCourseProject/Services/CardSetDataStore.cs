@@ -11,7 +11,8 @@ namespace FlashcardsCourseProject.Services
         private ApplicationContext _db => DependencyService.Get<ApplicationContext>();
         public CardSetDataStore()
         {
-            //_db.Database.EnsureCreated();
+            _db.Database.EnsureCreated();
+
         }
 
         public async Task<bool> AddItemAsync(CardSet item)
@@ -26,7 +27,7 @@ namespace FlashcardsCourseProject.Services
         {
             var oldItem = _db.CardSet.Where(a => a.Id == item.Id).FirstOrDefault();
             oldItem.Name = item.Name;
-            oldItem.PictureId = item.PictureId;
+            oldItem.PicturePath = item.PicturePath;
             _db.CardSet.Update(oldItem);
             _db.SaveChanges();
 

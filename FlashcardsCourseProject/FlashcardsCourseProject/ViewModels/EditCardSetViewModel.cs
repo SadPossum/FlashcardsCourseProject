@@ -14,12 +14,10 @@ namespace FlashcardsCourseProject.ViewModels
     public class EditCardSetViewModel : BaseViewModel
     {
         private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
-        private IDataStore<FileImage> FileImageDataStore => DependencyService.Get<IDataStore<FileImage>>();
-
 
         private int? _itemId;
         private string _name;
-        private FileImage _picture;
+        private string _picturePath;
         public EditCardSetViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
@@ -40,10 +38,10 @@ namespace FlashcardsCourseProject.ViewModels
             set => SetProperty(ref _name, value);
         }
 
-        public FileImage Picture
+        public string PicturePath
         {
-            get => _picture;
-            set => SetProperty(ref _picture, value);
+            get => _picturePath;
+            set => SetProperty(ref _picturePath, value);
         }
 
         public string ItemId
@@ -78,7 +76,7 @@ namespace FlashcardsCourseProject.ViewModels
             CardSet newItem = new CardSet
             {
                 Name = Name,
-                PictureId = Picture.Id
+                PicturePath = PicturePath
             };
 
             if (_itemId != null)
@@ -88,7 +86,7 @@ namespace FlashcardsCourseProject.ViewModels
             }
             else
             {
-                newItem.Id = 0;
+                //newItem.Id = 0;
                 await CardSetDataStore.AddItemAsync(newItem);
             }
 
@@ -98,22 +96,10 @@ namespace FlashcardsCourseProject.ViewModels
 
         private async void PickImageAsync()
         {
-            try
-            {
-                FileResult photo = await MediaPicker.PickPhotoAsync();
-                FileImage image = new FileImage
-                {
-                    Path = photo.FullPath
-                };
-
-                await FileImageDataStore.AddItemAsync(image);
-                Bitmap img = new Bitmap(photo.FullPath);
-                img.Save(Path.Combine(FileSystem.AppDataDirectory, photo.FileName), ImageFormat.Png);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error: {ex.Message}");
-            }
+            FileResult photo = await MediaPicker.PickPhotoAsync();
+            _picturePath = photo.FullPath;
+            //Bitmap img = new Bitmap(photo.FullPath);
+            //img.Save(Path.Combine(FileSystem.AppDataDirectory, photo.FileName), ImageFormat.Png);
 
         }
 
@@ -123,7 +109,7 @@ namespace FlashcardsCourseProject.ViewModels
             {
                 CardSet item = await CardSetDataStore.GetItemAsync(itemId);
                 Name = item.Name;
-                Picture = item.FilePicture;
+                PicturePath = item.PicturePath;
             }
             catch (Exception)
             {

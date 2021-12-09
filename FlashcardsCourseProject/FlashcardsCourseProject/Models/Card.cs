@@ -9,15 +9,8 @@ namespace FlashcardsCourseProject.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string FrontText { get; set; }
-
-        [ForeignKey("FrontImageId")]
-        public int FrontImageId { get; set; }
-        public FileImage FileImageFront { get; set; }
-
-        [ForeignKey("BackImageId")]
-        public int BackImageId { get; set; }
-        public FileImage FileImageBack { get; set; }
-
+        public string FrontImagePath { get; set; }
+        public string BackImagePath { get; set; }
         public string BackText { get; set; }
 
         [ForeignKey("CardSetId")]

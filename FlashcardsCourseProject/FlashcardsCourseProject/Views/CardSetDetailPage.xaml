@@ -9,7 +9,7 @@
         <Label FontSize="Medium" Text="Name:" />
         <Label FontSize="Small" Text="{Binding Name}" />
         <Label FontSize="Medium" Text="Picture:" />
-        <Label FontSize="Small" Text="{Binding Picture}" />
+        <Label FontSize="Small" Text="{Binding PicturePath}" />
     </StackLayout>
 
 </ContentPage>

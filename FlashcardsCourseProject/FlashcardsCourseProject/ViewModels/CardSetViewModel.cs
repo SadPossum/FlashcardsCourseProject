@@ -51,7 +51,7 @@ namespace FlashcardsCourseProject.ViewModels
                     {
                         Id = item.Id,
                         Name = item.Name,
-                        PictureId = item.PictureId,
+                        PicturePath = item.PicturePath,
                     };
                     Items.Add(temp);
                 }

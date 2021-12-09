@@ -38,7 +38,7 @@
                         Aspect="AspectFill"
                         Background="lightgray"
                         HeightRequest="60"
-                        Source="{Binding Path=Picture.Path}"
+                        Source="{Binding Path=PicturePath}"
                         WidthRequest="60" />
                 </Frame>
 
