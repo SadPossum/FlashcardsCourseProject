@@ -9,14 +9,57 @@
     Shell.PresentationMode="ModalAnimated">
     <ContentPage.Content>
         <StackLayout Padding="15" Spacing="3">
+            <Grid Padding="10" HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="120" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="15" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="5" />
+                </Grid.ColumnDefinitions>
+
+                <Frame
+                    Grid.RowSpan="6"
+                    Grid.ColumnSpan="6"
+                    Padding="0"
+                    CornerRadius="20"
+                    IsClippedToBounds="True">
+                    <Image
+                        Aspect="AspectFill"
+                        Background="lightgray"
+                        HeightRequest="60"
+                        Source="{Binding Path=Picture.Path}"
+                        WidthRequest="60" />
+                </Frame>
+
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="4"
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="TailTruncation"
+                    Text="{Binding Name}"
+                    TextColor="{StaticResource Primary}" />
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PickImageCommand}" NumberOfTapsRequired="1" />
+                </Grid.GestureRecognizers>
+            </Grid>
+
             <Label FontSize="Medium" Text="Name" />
             <Entry FontSize="Medium" Text="{Binding Name, Mode=TwoWay}" />
-            <Label FontSize="Medium" Text="Picture" />
-            <Editor
-                Margin="0"
-                AutoSize="TextChanges"
-                FontSize="Medium"
-                Text="{Binding Picture, Mode=TwoWay}" />
+
             <StackLayout Orientation="Horizontal">
                 <Button
                     BorderWidth="1.5"
@@ -24,7 +67,7 @@
                     CornerRadius="15"
                     HorizontalOptions="FillAndExpand"
                     Text="отмена" />
-                    <Button
+                <Button
                     BorderWidth="1.5"
                     Command="{Binding SaveCommand}"
                     CornerRadius="15"

@@ -19,13 +19,13 @@ namespace FlashcardsCourseProject.ViewModels
 
         private int? _itemId;
         private string _name;
-        private int _pictureId;
+        private FileImage _picture;
         public EditCardSetViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             PickImageCommand = new Command(PickImageAsync);
-            this.PropertyChanged +=
+            PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
         }
 
@@ -40,10 +40,10 @@ namespace FlashcardsCourseProject.ViewModels
             set => SetProperty(ref _name, value);
         }
 
-        public int PictureId
+        public FileImage Picture
         {
-            get => _pictureId;
-            set => SetProperty(ref _pictureId, value);
+            get => _picture;
+            set => SetProperty(ref _picture, value);
         }
 
         public string ItemId
@@ -78,7 +78,7 @@ namespace FlashcardsCourseProject.ViewModels
             CardSet newItem = new CardSet
             {
                 Name = Name,
-                PictureId = PictureId
+                PictureId = Picture.Id
             };
 
             if (_itemId != null)
@@ -100,10 +100,9 @@ namespace FlashcardsCourseProject.ViewModels
         {
             try
             {
-                var photo = await MediaPicker.PickPhotoAsync();
+                FileResult photo = await MediaPicker.PickPhotoAsync();
                 FileImage image = new FileImage
                 {
-                    Name = photo.FileName,
                     Path = photo.FullPath
                 };
 
@@ -122,9 +121,9 @@ namespace FlashcardsCourseProject.ViewModels
         {
             try
             {
-                var item = await CardSetDataStore.GetItemAsync(itemId);
+                CardSet item = await CardSetDataStore.GetItemAsync(itemId);
                 Name = item.Name;
-                PictureId = item.PictureId;
+                Picture = item.FilePicture;
             }
             catch (Exception)
             {

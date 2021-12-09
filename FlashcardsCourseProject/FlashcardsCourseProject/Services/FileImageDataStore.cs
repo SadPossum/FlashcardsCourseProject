@@ -25,7 +25,6 @@ namespace FlashcardsCourseProject.Services
         public async Task<bool> UpdateItemAsync(FileImage item)
         {
             var oldItem = _db.FileImage.Where(a => a.Id == item.Id).FirstOrDefault();
-            oldItem.Name = item.Name;
             oldItem.Path = item.Path;
             _db.FileImage.Update(oldItem);
             _db.SaveChanges();
