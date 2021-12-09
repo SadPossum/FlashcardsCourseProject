@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-    Title="New Item"
+    Title="новый набор карточек"
     ios:Page.UseSafeArea="true"
     Shell.PresentationMode="ModalAnimated">
     <ContentPage.Content>
@@ -19,13 +19,17 @@
                 Text="{Binding Picture, Mode=TwoWay}" />
             <StackLayout Orientation="Horizontal">
                 <Button
+                    BorderWidth="1.5"
                     Command="{Binding CancelCommand}"
+                    CornerRadius="15"
                     HorizontalOptions="FillAndExpand"
-                    Text="Cancel" />
-                <Button
+                    Text="отмена" />
+                    <Button
+                    BorderWidth="1.5"
                     Command="{Binding SaveCommand}"
+                    CornerRadius="15"
                     HorizontalOptions="FillAndExpand"
-                    Text="Save" />
+                    Text="сохранить" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
