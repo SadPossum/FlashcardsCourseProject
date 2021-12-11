@@ -22,6 +22,7 @@ namespace FlashcardsCourseProject.ViewModels
         {
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
+            DeleteCommand = new Command(DeleteCardSetAsync);
             PickImageCommand = new Command(PickImageAsync);
             PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
@@ -63,6 +64,7 @@ namespace FlashcardsCourseProject.ViewModels
 
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
+        public Command DeleteCommand { get; }
         public Command PickImageCommand { get; }
 
         private async void OnCancel()
@@ -102,6 +104,15 @@ namespace FlashcardsCourseProject.ViewModels
             //Bitmap img = new Bitmap(photo.FullPath);
             //img.Save(Path.Combine(FileSystem.AppDataDirectory, photo.FileName), ImageFormat.Png);
 
+        }
+
+        public async void DeleteCardSetAsync()
+        {
+            if(_itemId != null)
+            {
+                await CardSetDataStore.DeleteItemAsync((int)_itemId);
+                await Shell.Current.GoToAsync("..");
+            }
         }
 
         public async void LoadItemId(int itemId)

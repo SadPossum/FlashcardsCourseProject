@@ -23,20 +23,14 @@ namespace FlashcardsCourseProject.ViewModels
         private string _backImagePath;
         public EditCardViewModel()
         {
-            SaveCommand = new Command(OnSave, ValidateSave);
+            SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
+            DeleteCommand = new Command(DeleteCardAsync);
             PickFrontImageCommand = new Command(PickFrontImageAsync);
             PickBackImageCommand = new Command(PickBackImageAsync);
             PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
         }
-
-        private bool ValidateSave()
-        {
-            return !string.IsNullOrWhiteSpace(_frontText) 
-                & !string.IsNullOrWhiteSpace(_backText);
-        }
-
         public string FrontText
         {
             get => _frontText;
@@ -95,6 +89,7 @@ namespace FlashcardsCourseProject.ViewModels
 
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
+        public Command DeleteCommand { get; }
         public Command PickFrontImageCommand { get; }
         public Command PickBackImageCommand { get; }
 
@@ -127,6 +122,14 @@ namespace FlashcardsCourseProject.ViewModels
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
+        }
+        public async void DeleteCardAsync()
+        {
+            if (_itemId != null)
+            {
+                await CardDataStore.DeleteItemAsync((int)_itemId);
+                await Shell.Current.GoToAsync("..");
+            }
         }
 
         private async void PickFrontImageAsync()
