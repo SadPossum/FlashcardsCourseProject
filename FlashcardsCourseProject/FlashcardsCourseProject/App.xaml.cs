@@ -1,3 +1,4 @@
+﻿using FlashcardsCourseProject.Models;
 using System;
 using Xamarin.Forms;
 
@@ -9,8 +10,8 @@ namespace FlashcardsCourseProject
         {
             InitializeComponent();
 
-            DependencyService.Register<CardSetDataStore>();
-            DependencyService.Register<CardDataStore>();
+            DependencyService.Register<FlashCardSetDataStore>();
+            DependencyService.Register<FlashCardDataStore>();
             MainPage = new AppShell();
         }
 
