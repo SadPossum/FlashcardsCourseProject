@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlashcardsCourseProject.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -21,6 +22,13 @@ namespace FlashcardsCourseProject.ViewModels
         {
             get { return title; }
             set { SetProperty(ref title, value); }
+        }
+
+        User _authUser = null;
+        public User AuthUser
+        {
+            get { return _authUser; }
+            set { SetProperty(ref _authUser, value); }
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,
