@@ -7,11 +7,11 @@ using Xamarin.Forms;
 namespace FlashcardsCourseProject.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
-    public class CardDetailViewModel : BaseViewModel
+    public class FlashCardDetailViewModel : BaseViewModel
     {
-        private IDataStore<Card> CardDataStore => DependencyService.Get<IDataStore<Card>>();
+        private IDataStore<FlashCard> CardDataStore => DependencyService.Get<IDataStore<FlashCard>>();
 
-        public CardDetailViewModel()
+        public FlashCardDetailViewModel()
         {
             ChangeSideCommand = new Command(ChangeSide);
         }
@@ -19,10 +19,10 @@ namespace FlashcardsCourseProject.ViewModels
         private int? _itemId;
         private bool _frontSideVisibility = true;
         private bool _backSideVisibility = false;
-        private string _frontText;
-        private string _backText;
-        private string _frontImagePath;
-        private string _backImagePath;
+        private string _frontSideText;
+        private string _backSideText;
+        private string _frontSideImagePath;
+        private string _backSideImagePath;
 
         public Command ChangeSideCommand { get; }
 
@@ -38,28 +38,28 @@ namespace FlashcardsCourseProject.ViewModels
             set => SetProperty(ref _backSideVisibility, value);
         }
 
-        public string FrontText
+        public string FrontSideText
         {
-            get => _frontText;
-            set => SetProperty(ref _frontText, value);
+            get => _frontSideText;
+            set => SetProperty(ref _frontSideText, value);
         }
 
-        public string BackText
+        public string FrontSideImagePath
         {
-            get => _backText;
-            set => SetProperty(ref _backText, value);
+            get => _frontSideImagePath;
+            set => SetProperty(ref _frontSideImagePath, value);
         }
 
-        public string FrontImagePath
+        public string BackSideText
         {
-            get => _frontImagePath;
-            set => SetProperty(ref _frontImagePath, value);
+            get => _backSideText;
+            set => SetProperty(ref _backSideText, value);
         }
 
-        public string BackImagePath
+        public string BackSideImagePath
         {
-            get => _backImagePath;
-            set => SetProperty(ref _backImagePath, value);
+            get => _backSideImagePath;
+            set => SetProperty(ref _backSideImagePath, value);
         }
 
         public string ItemId
@@ -86,11 +86,12 @@ namespace FlashcardsCourseProject.ViewModels
         {
             try
             {
+               
                 var item = await CardDataStore.GetItemAsync(itemId);
-                FrontText = item.FrontText;
-                BackText = item.BackText;
-                FrontImagePath = item.FrontImagePath;
-                BackImagePath = item.BackImagePath;
+                FrontSideText = item.FrontSideText;
+                BackSideText = item.BackSideText;
+                FrontSideImagePath = item.FrontSideImagePath;
+                BackSideImagePath = item.BackSideImagePath;
             }
             catch (Exception)
             {
