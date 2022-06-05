@@ -7,11 +7,11 @@ namespace FlashcardsCourseProject.Views
 {
     public partial class EditCardPage : ContentPage
     {
-        public Card Item { get; set; }
+        public FlashCard Item { get; set; }
         public EditCardPage()
         {
             InitializeComponent();
-            BindingContext = new EditCardViewModel();
+            BindingContext = new EditFlashCardViewModel();
         }
     }
 }

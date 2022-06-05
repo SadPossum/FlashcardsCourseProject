@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.21" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
@@ -19,22 +20,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\EditCardPage.xaml.cs">
-      <DependentUpon>EditCardPage.xaml</DependentUpon>
+    <Compile Update="Views\FlashCardSetPage.xaml.cs">
+      <DependentUpon>FlashCardSetPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\EditCardSetPage.xaml.cs">
-      <DependentUpon>EditCardSetPage.xaml</DependentUpon>
+    <Compile Update="Views\FlashCardPage.xaml.cs">
+      <DependentUpon>FlashCardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FlashCardDetailPage.xaml.cs">
+      <DependentUpon>FlashCardDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FlashEditCardPage.xaml.cs">
+      <DependentUpon>FlashEditCardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FlashEditCardSetPage.xaml.cs">
+      <DependentUpon>FlashEditCardSetPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\CardPage.xaml">
+    <EmbeddedResource Update="Views\FlashCardPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\CardSetPage.xaml">
+    <EmbeddedResource Update="Views\FlashCardSetPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\EditCardSetPage.xaml">
+    <EmbeddedResource Update="Views\FlashEditCardSetPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

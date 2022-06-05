@@ -16,7 +16,7 @@
         https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
     <RefreshView
-        x:DataType="local:CardSetViewModel"
+        x:DataType="local:FlashCardSetViewModel"
         Command="{Binding LoadItemsCommand}"
         IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView
@@ -26,7 +26,7 @@
             SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10" x:DataType="model:CardSet">
+                    <Grid Padding="10" x:DataType="model:FlashCardSet">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="5" />
                             <RowDefinition Height="40" />
@@ -54,7 +54,7 @@
                             <Image
                                 Aspect="AspectFill"
                                 Background="lightgray"
-                                Source="{Binding PicturePath}" />
+                                Source="{Binding ImagePath}" />
                         </Frame>
 
                         <Button
@@ -63,7 +63,7 @@
                             BackgroundColor="Transparent"
                             BorderColor="{StaticResource Primary}"
                             BorderWidth="1.5"
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:CardSetViewModel}}, Path=EditItemCommand}"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:FlashCardSetViewModel}}, Path=EditItemCommand}"
                             CommandParameter="{Binding .}"
                             CornerRadius="15"
                             Text="/"
@@ -82,7 +82,7 @@
 
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:CardSetViewModel}}, Path=ItemTapped}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:FlashCardSetViewModel}}, Path=ItemTapped}"
                                 CommandParameter="{Binding .}"
                                 NumberOfTapsRequired="1" />
                         </Grid.GestureRecognizers>

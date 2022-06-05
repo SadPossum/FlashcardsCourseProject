@@ -49,7 +49,7 @@
                 FontAttributes="Bold"
                 HorizontalTextAlignment="Center"
                 LineBreakMode="TailTruncation"
-                Text="{Binding FrontText}"
+                Text="{Binding FrontSideText}"
                 TextColor="{StaticResource Primary}"
                 VerticalTextAlignment="Center" />
 
@@ -90,7 +90,7 @@
                     Aspect="AspectFill"
                     Background="lightgray"
                     HeightRequest="60"
-                    Source="{Binding BackImagePath}"
+                    Source="{Binding BackSideImagePath}"
                     WidthRequest="60" />
             </Frame>
 
@@ -101,7 +101,7 @@
                 FontAttributes="Bold"
                 HorizontalTextAlignment="Center"
                 LineBreakMode="TailTruncation"
-                Text="{Binding BackText}"
+                Text="{Binding BackSideText}"
                 TextColor="{StaticResource Primary}"
                 VerticalTextAlignment="Center" />
 

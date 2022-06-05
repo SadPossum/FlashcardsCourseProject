@@ -9,7 +9,7 @@ namespace FlashcardsCourseProject.Views
         public CardDetailPage()
         {
             InitializeComponent();
-            BindingContext = new CardDetailViewModel();
+            BindingContext = new FlashCardDetailViewModel();
         }
     }
 }

@@ -6,12 +6,12 @@ namespace FlashcardsCourseProject.Views
 {
     public partial class CardSetPage : ContentPage
     {
-        private readonly CardSetViewModel _cardSetViewModel;
+        private readonly FlashCardSetViewModel _cardSetViewModel;
         public CardSetPage()
         {
             InitializeComponent();
 
-            BindingContext = _cardSetViewModel = new CardSetViewModel();
+            BindingContext = _cardSetViewModel = new FlashCardSetViewModel();
         }
 
         protected override void OnAppearing()

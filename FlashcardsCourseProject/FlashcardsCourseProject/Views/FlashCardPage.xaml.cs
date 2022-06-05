@@ -8,13 +8,13 @@ namespace FlashcardsCourseProject.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CardPage : ContentPage
     {
-        private readonly CardViewModel _cardViewModel;
+        private readonly FlashCardViewModel _cardViewModel;
 
         public CardPage()
         {
             InitializeComponent();
 
-            BindingContext = _cardViewModel = new CardViewModel();
+            BindingContext = _cardViewModel = new FlashCardViewModel();
         }
 
         protected override void OnAppearing()

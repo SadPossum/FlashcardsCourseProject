@@ -6,11 +6,11 @@ namespace FlashcardsCourseProject.Views
 {
     public partial class EditCardSetPage : ContentPage
     {
-        public CardSet Item { get; set; }
+        public FlashCardSet Item { get; set; }
         public EditCardSetPage()
         {
             InitializeComponent();
-            BindingContext = new EditCardSetViewModel();
+            BindingContext = new EditFlashCardSetViewModel();
         }
     }
 }
