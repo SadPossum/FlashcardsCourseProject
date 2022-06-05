@@ -10,18 +10,18 @@ using Xamarin.Forms;
 
 namespace FlashcardsCourseProject.ViewModels
 {
-    [QueryProperty(nameof(ItemId), nameof(ItemId)), QueryProperty(nameof(CardSetId), nameof(CardSetId))]
-    public class EditCardViewModel : BaseViewModel
+    [QueryProperty(nameof(ItemId), nameof(ItemId)), QueryProperty(nameof(FlashCardSetId), nameof(FlashCardSetId))]
+    public class EditFlashCardViewModel : BaseViewModel
     {
-        private IDataStore<Card> CardDataStore => DependencyService.Get<IDataStore<Card>>();
+        private IDataStore<FlashCard> CardDataStore => DependencyService.Get<IDataStore<FlashCard>>();
 
         private int? _itemId;
-        private int? _cardSetId;
-        private string _frontText;
-        private string _frontImagePath;
-        private string _backText;
-        private string _backImagePath;
-        public EditCardViewModel()
+        private int? _flashCardSetId;
+        private string _frontSideText;
+        private string _frontSideImagePath;
+        private string _backSideText;
+        private string _backSideImagePath;
+        public EditFlashCardViewModel()
         {
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
@@ -31,28 +31,28 @@ namespace FlashcardsCourseProject.ViewModels
             PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
         }
-        public string FrontText
+        public string FrontSideText
         {
-            get => _frontText;
-            set => SetProperty(ref _frontText, value);
+            get => _frontSideText;
+            set => SetProperty(ref _frontSideText, value);
         }
 
-        public string FrontImagePath
+        public string FrontSideImagePath
         {
-            get => _frontImagePath;
-            set => SetProperty(ref _frontImagePath, value);
+            get => _frontSideImagePath;
+            set => SetProperty(ref _frontSideImagePath, value);
         }
 
-        public string BackText
+        public string BackSideText
         {
-            get => _backText;
-            set => SetProperty(ref _backText, value);
+            get => _backSideText;
+            set => SetProperty(ref _backSideText, value);
         }
 
-        public string BackImagePath
+        public string BackSideImagePath
         {
-            get => _backImagePath;
-            set => SetProperty(ref _backImagePath, value);
+            get => _backSideImagePath;
+            set => SetProperty(ref _backSideImagePath, value);
         }
 
         public string ItemId
@@ -72,17 +72,17 @@ namespace FlashcardsCourseProject.ViewModels
             }
         }
 
-        public string CardSetId
+        public string FlashCardSetId
         {
             set
             {
                 if (int.TryParse(value, out int res))
                 {
-                    _cardSetId = res;
+                    _flashCardSetId = res;
                 }
                 else
                 {
-                    _cardSetId = null;
+                    _flashCardSetId = null;
                 }
             }
         }
@@ -101,13 +101,13 @@ namespace FlashcardsCourseProject.ViewModels
 
         private async void OnSave()
         {
-            Card newItem = new Card
+            FlashCard newItem = new FlashCard
             {
-                FrontText = FrontText,
-                FrontImagePath = FrontImagePath,
-                BackText = BackText,
-                BackImagePath = BackImagePath,
-                CardSetId = (int)_cardSetId,
+                FrontSideText = FrontSideText,
+                FrontSideImagePath = FrontSideImagePath,
+                BackSideText = BackSideText,
+                BackSideImagePath = BackSideImagePath,
+                FlashCardSetId = (int)_flashCardSetId,
             };
 
             if (_itemId != null)
@@ -136,25 +136,26 @@ namespace FlashcardsCourseProject.ViewModels
         {
             FileResult photo = await MediaPicker.PickPhotoAsync();
             if (photo != null)
-                FrontImagePath = photo.FullPath;
+                FrontSideImagePath = photo.FullPath;
         }
 
         private async void PickBackImageAsync()
         {
             FileResult photo = await MediaPicker.PickPhotoAsync();
             if (photo != null)
-                BackImagePath = photo.FullPath;
+                BackSideImagePath = photo.FullPath;
         }
 
         public async void LoadItemId(int itemId)
         {
             try
             {
-                Card item = await CardDataStore.GetItemAsync(itemId);
-                FrontText = item.FrontText;
-                FrontImagePath = item.FrontImagePath;
-                BackText = item.BackText;
-                BackImagePath = item.BackImagePath;
+                FlashCard item = await CardDataStore.GetItemAsync(itemId);
+
+                FrontSideText = item.FrontSideText;
+                FrontSideImagePath = item.FrontSideImagePath;
+                BackSideText = item.BackSideText;
+                BackSideImagePath = item.BackSideImagePath;
             }
             catch (Exception)
             {
