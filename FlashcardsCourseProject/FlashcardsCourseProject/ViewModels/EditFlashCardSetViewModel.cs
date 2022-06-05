@@ -2,23 +2,22 @@ using FlashcardsCourseProject.Models;
 using FlashcardsCourseProject.Services;
 using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace FlashcardsCourseProject.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
-    public class EditCardSetViewModel : BaseViewModel
+    public class EditFlashCardSetViewModel : BaseViewModel
     {
-        private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
+        private IDataStore<FlashCardSet> CardSetDataStore => DependencyService.Get<IDataStore<FlashCardSet>>();
 
         private int? _itemId;
         private string _name;
-        private string _picturePath;
-        public EditCardSetViewModel()
+        private string _imagePath;
+        private int _userId;
+        private string _description;
+        public EditFlashCardSetViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
@@ -39,10 +38,16 @@ namespace FlashcardsCourseProject.ViewModels
             set => SetProperty(ref _name, value);
         }
 
-        public string PicturePath
+        public string ImagePath
         {
-            get => _picturePath;
-            set => SetProperty(ref _picturePath, value);
+            get => _imagePath;
+            set => SetProperty(ref _imagePath, value);
+        }
+
+        public string Description
+        {
+            get => _description;
+            set => SetProperty(ref _description, value);
         }
 
         public string ItemId
@@ -75,10 +80,11 @@ namespace FlashcardsCourseProject.ViewModels
 
         private async void OnSave()
         {
-            CardSet newItem = new CardSet
+            FlashCardSet newItem = new FlashCardSet
             {
                 Name = Name,
-                PicturePath = PicturePath
+                Description = Description,
+                ImagePath = ImagePath,
             };
 
             if (_itemId != null)
@@ -99,8 +105,8 @@ namespace FlashcardsCourseProject.ViewModels
         private async void PickImageAsync()
         {
             FileResult photo = await MediaPicker.PickPhotoAsync();
-            if(photo != null)
-                PicturePath = photo.FullPath;
+            if (photo != null)
+                ImagePath = photo.FullPath;
             //Bitmap img = new Bitmap(photo.FullPath);
             //img.Save(Path.Combine(FileSystem.AppDataDirectory, photo.FileName), ImageFormat.Png);
 
@@ -108,7 +114,7 @@ namespace FlashcardsCourseProject.ViewModels
 
         public async void DeleteCardSetAsync()
         {
-            if(_itemId != null)
+            if (_itemId != null)
             {
                 await CardSetDataStore.DeleteItemAsync((int)_itemId);
                 await Shell.Current.GoToAsync("..");
@@ -119,9 +125,10 @@ namespace FlashcardsCourseProject.ViewModels
         {
             try
             {
-                CardSet item = await CardSetDataStore.GetItemAsync(itemId);
+                FlashCardSet item = await CardSetDataStore.GetItemAsync(itemId);
                 Name = item.Name;
-                PicturePath = item.PicturePath;
+                Description = item.Description;
+                ImagePath = item.ImagePath;
             }
             catch (Exception)
             {
