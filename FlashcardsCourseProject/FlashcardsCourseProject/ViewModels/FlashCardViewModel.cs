@@ -11,17 +11,17 @@ using Xamarin.Forms;
 namespace FlashcardsCourseProject.ViewModels
 {
     [QueryProperty(nameof(ParentId), nameof(ParentId))]
-    public class CardViewModel : BaseViewModel
+    public class FlashCardViewModel : BaseViewModel
     {
-        private IDataStore<Card> CardSetDataStore => DependencyService.Get<IDataStore<Card>>();
-        private Card _selectedItem;
+        private IDataStore<FlashCard> CardSetDataStore => DependencyService.Get<IDataStore<FlashCard>>();
+        private FlashCard _selectedItem;
         private int? _parentId;
 
-        public ObservableCollection<Card> Items { get; }
+        public ObservableCollection<FlashCard> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Card> EditItemCommand { get; }
-        public Command<Card> ItemTapped { get; }
+        public Command<FlashCard> EditItemCommand { get; }
+        public Command<FlashCard> ItemTapped { get; }
 
         public string ParentId
         {
@@ -40,17 +40,17 @@ namespace FlashcardsCourseProject.ViewModels
             }
         }
 
-        public CardViewModel()
+        public FlashCardViewModel()
         {
-            Items = new ObservableCollection<Card>();
+            Items = new ObservableCollection<FlashCard>();
 
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand((int)_parentId));
 
-            ItemTapped = new Command<Card>(OnItemSelected);
+            ItemTapped = new Command<FlashCard>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
 
-            EditItemCommand = new Command<Card>(OnEditItem);
+            EditItemCommand = new Command<FlashCard>(OnEditItem);
         }
 
         async Task ExecuteLoadItemsCommand(int parentId)
@@ -60,16 +60,17 @@ namespace FlashcardsCourseProject.ViewModels
             try
             {
                 Items.Clear();
-                IEnumerable<Card> items = await CardSetDataStore.GetItemsAsync(parentId);
-                foreach (Card item in items)
+                IEnumerable<FlashCard> items = await CardSetDataStore.GetItemsAsync(parentId);
+                foreach (FlashCard item in items)
                 {
-                    Card temp = new Card()
+                    FlashCard temp = new FlashCard()
                     {
                         Id = item.Id,
-                        FrontText = item.FrontText,
-                        FrontImagePath = item.FrontImagePath,
-                        BackText = item.BackText,
-                        BackImagePath = item.BackImagePath,
+                        BackSideImagePath = item.BackSideImagePath,
+                        BackSideText = item.BackSideText,
+                        FlashCardSetId  = item.FlashCardSetId,
+                        FrontSideImagePath = item.FrontSideImagePath,
+                        FrontSideText = item.FrontSideText,
                     };
                     Items.Add(temp);
                 }
@@ -90,7 +91,7 @@ namespace FlashcardsCourseProject.ViewModels
             SelectedItem = null;
         }
 
-        public Card SelectedItem
+        public FlashCard SelectedItem
         {
             get => _selectedItem;
             set
@@ -102,25 +103,25 @@ namespace FlashcardsCourseProject.ViewModels
 
         private async void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync($"{nameof(EditCardPage)}?{nameof(EditCardViewModel.CardSetId)}={_parentId}");
+            await Shell.Current.GoToAsync($"{nameof(EditCardPage)}?{nameof(EditFlashCardViewModel.FlashCardSetId)}={_parentId}");
         }
 
-        async void OnEditItem(Card card)
+        async void OnEditItem(FlashCard card)
         {
             if (card == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(EditCardPage)}?{nameof(EditCardViewModel.ItemId)}={card.Id}&{nameof(EditCardViewModel.CardSetId)}={_parentId}");
+            await Shell.Current.GoToAsync($"{nameof(EditCardPage)}?{nameof(EditFlashCardViewModel.ItemId)}={card.Id}&{nameof(EditFlashCardViewModel.FlashCardSetId)}={_parentId}");
         }
 
-        async void OnItemSelected(Card card)
+        async void OnItemSelected(FlashCard card)
         {
             if (card == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(CardDetailPage)}?{nameof(CardDetailViewModel.ItemId)}={card.Id}?");
+            await Shell.Current.GoToAsync($"{nameof(CardDetailPage)}?{nameof(FlashCardDetailViewModel.ItemId)}={card.Id}?");
         }
     }
 }
