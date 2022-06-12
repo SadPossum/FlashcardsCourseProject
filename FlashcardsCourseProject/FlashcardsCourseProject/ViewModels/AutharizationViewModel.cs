@@ -11,7 +11,7 @@ namespace FlashcardsCourseProject.ViewModels
 {
     public class AutharizationViewModel : BaseViewModel
     {
-        private IAutharizationDataStore AutharizationDataStore => DependencyService.Get<IAutharizationDataStore>();
+        private IAuthDataStore AuthDataStore => DependencyService.Get<IAuthDataStore>();
 
         //private string _name;
         private string _login;
@@ -49,7 +49,7 @@ namespace FlashcardsCourseProject.ViewModels
             try
             {
                 IsBusy = true;
-                AuthUser = await AutharizationDataStore.Autharization(Login, Password);
+                AuthUser = await AuthDataStore.Autharization(Login, Password);
 
                 //TODO: Если авторизацяи не удалась, вывести какой ни будь меседж
             }

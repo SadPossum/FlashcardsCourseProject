@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlashcardsCourseProject.Services
 {
-    public interface IAutharizationDataStore
+    public interface IAuthDataStore
     {
+        Task<User> Registration(string login, string password, string name);
         Task<User> Autharization(string login, string password);
     }
 }

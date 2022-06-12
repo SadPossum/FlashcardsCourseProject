@@ -11,7 +11,7 @@ namespace FlashcardsCourseProject.ViewModels
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        private IRegistrationDataStore RegistrationDataStore => DependencyService.Get<IRegistrationDataStore>();
+        private IAuthDataStore AuthDataStore => DependencyService.Get<IAuthDataStore>();
 
         private string _name;
         private string _login;
@@ -49,7 +49,7 @@ namespace FlashcardsCourseProject.ViewModels
             try
             {
                 IsBusy = true;
-                AuthUser = await RegistrationDataStore.Registration(Login, Password, Name);
+                AuthUser = await AuthDataStore.Registration(Login, Password, Name);
             }
             catch (Exception ex)
             {
