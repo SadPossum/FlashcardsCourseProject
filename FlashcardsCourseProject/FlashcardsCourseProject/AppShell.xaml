@@ -92,6 +92,9 @@
     <FlyoutItem Title="Наборы карточек" Icon="icon_feed.png">
         <ShellContent ContentTemplate="{DataTemplate local:CardSetPage}" Route="CardSetPage" />
     </FlyoutItem>
+    <FlyoutItem Title="Магазин" Icon="icon_feed.png">
+        <ShellContent ContentTemplate="{DataTemplate local:StorePage}" Route="StorePage" />
+    </FlyoutItem>
 
     <!--  When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <MenuItem

@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="FlashcardsCourseProject.Views.StorePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:FlashcardsCourseProject.ViewModels"
+    xmlns:model="clr-namespace:FlashcardsCourseProject.Models"
+    x:Name="BrowseItemsPage"
+    Title="{Binding Title}">
+    <!--
+        x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <RefreshView
+        x:DataType="local:CardSetViewModel"
+        Command="{Binding LoadItemsCommand}"
+        IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView
+            x:Name="CardSetListView"
+            ItemsLayout="VerticalGrid, 2"
+            ItemsSource="{Binding Items}"
+            SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" x:DataType="model:CardSet">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="120" />
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="15" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="25" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="5" />
+                        </Grid.ColumnDefinitions>
+
+                        <Frame
+                            Grid.RowSpan="6"
+                            Grid.ColumnSpan="6"
+                            Padding="0"
+                            CornerRadius="20"
+                            IsClippedToBounds="True">
+                            <Image
+                                Aspect="AspectFill"
+                                Background="lightgray"
+                                Source="{Binding PicturePath}" />
+                        </Frame>
+
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="4"
+                            BackgroundColor="Transparent"
+                            BorderColor="{StaticResource Primary}"
+                            BorderWidth="1.5"
+                            CommandParameter="{Binding .}"
+                            CornerRadius="15"
+                            Text="+"
+                            TextColor="{StaticResource Primary}" />
+
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="4"
+                            FontAttributes="Bold"
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="TailTruncation"
+                            Text="{Binding Name}"
+                            TextColor="{StaticResource Primary}"
+                            VerticalTextAlignment="Center" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>
