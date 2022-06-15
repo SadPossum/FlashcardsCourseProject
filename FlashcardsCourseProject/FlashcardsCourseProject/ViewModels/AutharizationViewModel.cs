@@ -16,7 +16,7 @@ namespace FlashcardsCourseProject.ViewModels
         }
         private async void Autharization(object obj)
         {
-            await Shell.Current.GoToAsync($"{nameof(AboutPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
         }
     }
 }
