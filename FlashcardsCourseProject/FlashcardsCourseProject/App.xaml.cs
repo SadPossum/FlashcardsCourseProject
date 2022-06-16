@@ -1,4 +1,5 @@
 ﻿using FlashcardsCourseProject.Services;
+using FlashcardsCourseProject.Views;
 using System;
 using Xamarin.Forms;
 
@@ -23,7 +24,7 @@ namespace FlashcardsCourseProject
             DependencyService.Register<StoreDataStore>();
             DependencyService.Register<CardSetDataStore>();
             DependencyService.Register<CardDataStore>();
-            MainPage = new AppShell();
+            MainPage = new LoginPage();
         }
 
         protected override void OnStart()

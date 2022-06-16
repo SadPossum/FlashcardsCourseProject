@@ -1,12 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="FlashcardsCourseProject.Views.LoginPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Shell.NavBarIsVisible="False"
-    mc:Ignorable="d">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashcardsCourseProject.Views.RegisterPage">
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
             <Label FontSize="Medium" Text="Login" VerticalOptions="Center" 
@@ -21,19 +16,26 @@
             <Entry FontSize="Medium" Text="{Binding Password, Mode=TwoWay}" VerticalOptions="Center" 
                 WidthRequest="250"
                 HorizontalOptions="Center" Margin="0,0,0,20"/>
+            <Label FontSize="Medium" Text="Second Password" VerticalOptions="Center" 
+                WidthRequest="250"
+                HorizontalOptions="Center"/>
+            <Entry FontSize="Medium" Text="{Binding SecondPassword, Mode=TwoWay}" VerticalOptions="Center" 
+                WidthRequest="250"
+                HorizontalOptions="Center" Margin="0,0,0,20"/>
             <Label FontSize="Medium" VerticalOptions="Center" 
                 WidthRequest="250"
-                HorizontalOptions="Center" Margin="0,0,0,20" Text="{Binding Allert, Mode=TwoWay}" TextColor="DarkRed" IsVisible="{Binding IsShowAllert}"/>
+                HorizontalOptions="Center" Margin="0,0,0,20" Text="{Binding Allert, Mode=TwoWay}"
+                TextColor="DarkRed" IsVisible="{Binding IsShowAllert}"/>
             <Button
-                Clicked="Button_Clicked"
-                Text="Login"
+                Clicked="ButtonConfirm_Clicked"
+                Text="Confirm"
                 VerticalOptions="Center" 
                 WidthRequest="250"
                 HorizontalOptions="Center"
                 />
             <Button
-                Clicked="ButtonRegister_Clicked"
-                Text="Register"
+                Clicked="ButtonBackToLogin_Clicked"
+                Text="Back to login"
                 VerticalOptions="Center" 
                 WidthRequest="250"
                 HorizontalOptions="Center"
