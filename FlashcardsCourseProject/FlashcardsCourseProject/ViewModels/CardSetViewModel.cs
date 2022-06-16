@@ -12,7 +12,7 @@ namespace FlashcardsCourseProject.ViewModels
 {
     public class CardSetViewModel : BaseViewModel
     {
-        private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
+        private CardSetDataStore CardSetDataStore => DependencyService.Get<CardSetDataStore>();
 
         private CardSet _selectedItem;
 

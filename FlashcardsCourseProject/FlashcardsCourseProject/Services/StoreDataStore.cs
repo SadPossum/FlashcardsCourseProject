@@ -6,10 +6,10 @@ using Xamarin.Forms;
 
 namespace FlashcardsCourseProject.Services
 {
-    public class CardSetDataStore : IDataStore<CardSet>
+    public class StoreDataStore : IDataStore<CardSet>
     {
         private ApplicationContext _db => DependencyService.Get<ApplicationContext>();
-        public CardSetDataStore()
+        public StoreDataStore()
         {
             _db.Database.EnsureCreated();
 
@@ -17,7 +17,7 @@ namespace FlashcardsCourseProject.Services
 
         public async Task<bool> AddItemAsync(CardSet item)
         {
-            _db.CardSet.Add(item);
+            _db.CardSet.Update(item);
             _db.SaveChanges();
 
             return await Task.FromResult(true);
@@ -28,6 +28,8 @@ namespace FlashcardsCourseProject.Services
             var oldItem = _db.CardSet.Where(a => a.Id == item.Id).FirstOrDefault();
             oldItem.Name = item.Name;
             oldItem.PicturePath = item.PicturePath;
+            oldItem.IsStoreCardSet = false;
+            oldItem.IsDelete = false;
             _db.CardSet.Update(oldItem);
             _db.SaveChanges();
 
@@ -37,8 +39,7 @@ namespace FlashcardsCourseProject.Services
         public async Task<bool> DeleteItemAsync(int id)
         {
             var oldItem = _db.CardSet.Where(a => a.Id == id).FirstOrDefault();
-            oldItem.IsDelete = true;
-            _db.CardSet.Update(oldItem);
+            _db.CardSet.Remove(oldItem);
             _db.SaveChanges();
 
             return await Task.FromResult(true);
@@ -46,12 +47,18 @@ namespace FlashcardsCourseProject.Services
 
         public async Task<CardSet> GetItemAsync(int id)
         {
+            //return await Task.FromResult(_db.Store.FirstOrDefault(a => a.Id == id));
             return await Task.FromResult(_db.CardSet.FirstOrDefault(a => a.Id == id));
         }
 
         public async Task<IEnumerable<CardSet>> GetItemsAsync(int? cardId = null)
         {
-            return await Task.FromResult(_db.CardSet.Where(a=>a.IsStoreCardSet == false && a.IsDelete == false).ToList());
+            var query = (from a in _db.Store
+                         join b in _db.CardSet
+                         on a.CardSetId equals b.Id
+                         select b).ToList();
+
+            return await Task.FromResult(query);
         }
     }
 }

@@ -20,6 +20,7 @@ namespace FlashcardsCourseProject
                 new Exception("Не удалось подключиться к базе данных");
             }
 
+            DependencyService.Register<StoreDataStore>();
             DependencyService.Register<CardSetDataStore>();
             DependencyService.Register<CardDataStore>();
             MainPage = new AppShell();

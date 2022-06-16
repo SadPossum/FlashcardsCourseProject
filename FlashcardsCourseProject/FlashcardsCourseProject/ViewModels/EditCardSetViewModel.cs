@@ -2,9 +2,6 @@ using FlashcardsCourseProject.Models;
 using FlashcardsCourseProject.Services;
 using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -13,11 +10,12 @@ namespace FlashcardsCourseProject.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class EditCardSetViewModel : BaseViewModel
     {
-        private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
+        private CardSetDataStore CardSetDataStore => DependencyService.Get<CardSetDataStore>();
 
         private int? _itemId;
         private string _name;
         private string _picturePath;
+        private bool _isStoreCardSet;
         public EditCardSetViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
@@ -43,6 +41,11 @@ namespace FlashcardsCourseProject.ViewModels
         {
             get => _picturePath;
             set => SetProperty(ref _picturePath, value);
+        }
+        public bool IsStoreCardSet
+        {
+            get => _isStoreCardSet;
+            set => SetProperty(ref _isStoreCardSet, value);
         }
 
         public string ItemId
@@ -78,7 +81,8 @@ namespace FlashcardsCourseProject.ViewModels
             CardSet newItem = new CardSet
             {
                 Name = Name,
-                PicturePath = PicturePath
+                PicturePath = PicturePath,
+                IsStoreCardSet = false
             };
 
             if (_itemId != null)
@@ -99,7 +103,7 @@ namespace FlashcardsCourseProject.ViewModels
         private async void PickImageAsync()
         {
             FileResult photo = await MediaPicker.PickPhotoAsync();
-            if(photo != null)
+            if (photo != null)
                 PicturePath = photo.FullPath;
             //Bitmap img = new Bitmap(photo.FullPath);
             //img.Save(Path.Combine(FileSystem.AppDataDirectory, photo.FileName), ImageFormat.Png);
@@ -108,7 +112,7 @@ namespace FlashcardsCourseProject.ViewModels
 
         public async void DeleteCardSetAsync()
         {
-            if(_itemId != null)
+            if (_itemId != null)
             {
                 await CardSetDataStore.DeleteItemAsync((int)_itemId);
                 await Shell.Current.GoToAsync("..");

@@ -37,9 +37,9 @@ namespace FlashcardsCourseProject.Services
 
         public async Task<bool> DeleteItemAsync(int id)
         {
-            var oldItem = _db.Card.Where(a => a.Id == id).FirstOrDefault();
-            _db.Card.Remove(oldItem);
-            _db.SaveChanges();
+            //var oldItem = _db.Card.Where(a => a.Id == id).FirstOrDefault();
+            //_db.Card.Remove(oldItem);
+            //_db.SaveChanges();
 
             return await Task.FromResult(true);
         }

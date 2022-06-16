@@ -6,18 +6,18 @@ namespace FlashcardsCourseProject.Views
 {
     public partial class StorePage : ContentPage
     {
-        private readonly CardSetViewModel _cardSetViewModel;
+        private readonly StoreViewModel _storeViewModel;
         public StorePage()
         {
             InitializeComponent();
 
-            BindingContext = _cardSetViewModel = new CardSetViewModel();
+            BindingContext = _storeViewModel = new StoreViewModel();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _cardSetViewModel.OnAppearing();
+            _storeViewModel.OnAppearing();
         }
     }
 }

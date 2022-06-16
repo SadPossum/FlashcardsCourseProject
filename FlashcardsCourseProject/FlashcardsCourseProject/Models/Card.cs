@@ -17,5 +17,7 @@ namespace FlashcardsCourseProject.Models
         public int CardSetId { get; set; } // Внешний ключ
         public CardSet CardSet { get; set; } // Навигационное ствойство
 
+        
+
     }
 }

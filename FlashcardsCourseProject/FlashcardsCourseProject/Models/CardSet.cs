@@ -13,7 +13,8 @@ namespace FlashcardsCourseProject.Models
         public string PicturePath { get; set; }
         public string CreateDate { get; set; }
         public string EditDate { get; set; }
+        public bool IsDelete { get; set; } = false;
+        public bool IsStoreCardSet { get; set; } = false;
         public List<Card> Cards { get; set; } = new List<Card>();
-
     }
 }

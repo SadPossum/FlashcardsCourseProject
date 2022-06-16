@@ -12,20 +12,24 @@ namespace FlashcardsCourseProject.ViewModels
 {
     public class StoreViewModel : BaseViewModel
     {
-        private IDataStore<CardSet> CardSetDataStore => DependencyService.Get<IDataStore<CardSet>>();
+        //private IDataStore<CardSet> StoreDataStore => DependencyService.Get<IDataStore<CardSet>>();
+        private StoreDataStore StoreDataStore => DependencyService.Get<StoreDataStore>();
+
 
         private CardSet _selectedItem;
 
         public ObservableCollection<CardSet> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
+        public Command<CardSet> EditItemCommand { get; }
         public Command<CardSet> ItemTapped { get; }
 
         public StoreViewModel()
         {
-            Title = "Наборы карточек";
-
+            Title = "Магазин";
             Items = new ObservableCollection<CardSet>();
+
+            //AddItemAsync = new ObservableCollection<CardSet>();
 
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -33,6 +37,7 @@ namespace FlashcardsCourseProject.ViewModels
 
             AddItemCommand = new Command(OnAddItem);
 
+            EditItemCommand = new Command<CardSet>(OnEditItem);
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -42,7 +47,7 @@ namespace FlashcardsCourseProject.ViewModels
             try
             {
                 Items.Clear();
-                IEnumerable<CardSet> items = await CardSetDataStore.GetItemsAsync();
+                IEnumerable<CardSet> items = await StoreDataStore.GetItemsAsync();
                 foreach (CardSet item in items)
                 {
                     CardSet temp = new CardSet()
@@ -85,13 +90,21 @@ namespace FlashcardsCourseProject.ViewModels
             await Shell.Current.GoToAsync($"{nameof(EditCardSetPage)}");
         }
 
-        async void OnItemSelected(CardSet cardSet)
+        async void OnEditItem(CardSet cardSet)
         {
             if (cardSet == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(CardPage)}?{nameof(CardViewModel.ParentId)}={cardSet.Id}&{nameof(Title)}={cardSet.Name}");
+            await Shell.Current.GoToAsync($"{nameof(EditCardSetPage)}?{nameof(EditCardSetViewModel.ItemId)}={cardSet.Id}");
+        }
+
+        async void OnItemSelected(CardSet cardSet)
+        {
+            if (cardSet == null)
+                return;
+
+            await StoreDataStore.UpdateItemAsync(cardSet);
         }
     }
 }
