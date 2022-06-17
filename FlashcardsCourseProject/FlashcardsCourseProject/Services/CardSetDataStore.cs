@@ -29,6 +29,7 @@ namespace FlashcardsCourseProject.Services
             oldItem.Name = item.Name;
             oldItem.PicturePath = item.PicturePath;
             oldItem.IsStoreCardSet = item.IsStoreCardSet;
+            oldItem.PublishStore = item.PublishStore;
             _db.CardSet.Update(oldItem);
             _db.SaveChanges();
 
@@ -52,7 +53,7 @@ namespace FlashcardsCourseProject.Services
 
         public async Task<IEnumerable<CardSet>> GetItemsAsync(int? cardId = null)
         {
-            return await Task.FromResult(_db.CardSet.Where(a=>a.IsStoreCardSet == false && a.IsDelete == false).ToList());
+            return await Task.FromResult(_db.CardSet.Where(a=>a.IsDelete == false).ToList());
         }
     }
 }

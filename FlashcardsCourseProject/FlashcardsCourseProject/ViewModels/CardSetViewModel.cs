@@ -103,7 +103,7 @@ namespace FlashcardsCourseProject.ViewModels
         {
             if (cardset == null)
                 return;
-            cardset.IsStoreCardSet = true;
+            cardset.PublishStore = false;
             await CardSetDataStore.UpdateItemAsync(cardset);
             await StoreDataStore.AddItemAsync(cardset);
             await ExecuteLoadItemsCommand();
