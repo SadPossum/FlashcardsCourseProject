@@ -59,7 +59,7 @@
                     </Grid.GestureRecognizers>
                 </Grid>
 
-                <Label FontSize="Medium" Text="Name" />
+                <Label FontSize="Medium" Text="Вопрос:" />
                 <Entry FontSize="Medium" Text="{Binding FrontText, Mode=TwoWay}" />
 
                 <Grid Padding="10" HorizontalOptions="Center">
@@ -111,7 +111,7 @@
                     </Grid.GestureRecognizers>
                 </Grid>
 
-                <Label FontSize="Medium" Text="Name" />
+                <Label FontSize="Medium" Text="Ответ:" />
                 <Entry FontSize="Medium" Text="{Binding BackText, Mode=TwoWay}" />
 
                 <StackLayout Orientation="Horizontal">

@@ -58,7 +58,7 @@
                 </Grid.GestureRecognizers>
             </Grid>
 
-            <Label FontSize="Medium" Text="Name" />
+            <Label FontSize="Medium" Text="Название колоды:" />
             <Entry FontSize="Medium" Text="{Binding Name, Mode=TwoWay}" />
 
             <StackLayout Orientation="Horizontal">
