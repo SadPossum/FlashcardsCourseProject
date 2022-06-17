@@ -28,6 +28,7 @@ namespace FlashcardsCourseProject.Services
             var oldItem = _db.CardSet.Where(a => a.Id == item.Id).FirstOrDefault();
             oldItem.Name = item.Name;
             oldItem.PicturePath = item.PicturePath;
+            oldItem.IsStoreCardSet = item.IsStoreCardSet;
             _db.CardSet.Update(oldItem);
             _db.SaveChanges();
 

@@ -16,6 +16,7 @@ namespace FlashcardsCourseProject.ViewModels
         private string _name;
         private string _picturePath;
         private bool _isStoreCardSet;
+        private bool _publishStore;
         public EditCardSetViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
@@ -29,6 +30,12 @@ namespace FlashcardsCourseProject.ViewModels
         private bool ValidateSave()
         {
             return !string.IsNullOrWhiteSpace(_name);
+        }
+
+        public bool PublishStore
+        {
+            get => _publishStore;
+            set => SetProperty(ref _publishStore, value);
         }
 
         public string Name

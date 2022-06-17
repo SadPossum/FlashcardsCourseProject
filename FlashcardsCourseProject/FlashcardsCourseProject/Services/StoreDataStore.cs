@@ -17,8 +17,16 @@ namespace FlashcardsCourseProject.Services
 
         public async Task<bool> AddItemAsync(CardSet item)
         {
-            _db.CardSet.Update(item);
-            _db.SaveChanges();
+
+            var query = _db.Store.Where(x => x.CardSetId == item.Id).FirstOrDefault();
+
+            if(query == null)
+            {
+                Store store = new Store() {  CardSetId = item.Id };
+                _db.Store.Add(store);
+                _db.SaveChanges();
+            }
+            
 
             return await Task.FromResult(true);
         }
@@ -30,6 +38,7 @@ namespace FlashcardsCourseProject.Services
             oldItem.PicturePath = item.PicturePath;
             oldItem.IsStoreCardSet = false;
             oldItem.IsDelete = false;
+            oldItem.PublishStore = false;
             _db.CardSet.Update(oldItem);
             _db.SaveChanges();
 

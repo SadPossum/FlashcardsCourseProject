@@ -13,6 +13,7 @@ namespace FlashcardsCourseProject.ViewModels
     public class CardSetViewModel : BaseViewModel
     {
         private CardSetDataStore CardSetDataStore => DependencyService.Get<CardSetDataStore>();
+        private StoreDataStore StoreDataStore => DependencyService.Get<StoreDataStore>();
 
         private CardSet _selectedItem;
 
@@ -21,6 +22,7 @@ namespace FlashcardsCourseProject.ViewModels
         public Command AddItemCommand { get; }
         public Command<CardSet> EditItemCommand { get; }
         public Command<CardSet> ItemTapped { get; }
+        public Command<CardSet> PublishStoreCommand { get; }
 
         public CardSetViewModel()
         {
@@ -33,7 +35,7 @@ namespace FlashcardsCourseProject.ViewModels
             ItemTapped = new Command<CardSet>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
-
+            PublishStoreCommand = new Command<CardSet>(PublishStore);
             EditItemCommand = new Command<CardSet>(OnEditItem);
         }
 
@@ -52,6 +54,7 @@ namespace FlashcardsCourseProject.ViewModels
                         Id = item.Id,
                         Name = item.Name,
                         PicturePath = item.PicturePath,
+                        PublishStore = item.PublishStore,
                     };
                     Items.Add(temp);
                 }
@@ -96,6 +99,15 @@ namespace FlashcardsCourseProject.ViewModels
             await Shell.Current.GoToAsync($"{nameof(EditCardSetPage)}?{nameof(EditCardSetViewModel.ItemId)}={cardSet.Id}");
         }
 
+        async void PublishStore(CardSet cardset)
+        {
+            if (cardset == null)
+                return;
+            cardset.IsStoreCardSet = true;
+            await CardSetDataStore.UpdateItemAsync(cardset);
+            await StoreDataStore.AddItemAsync(cardset);
+            await ExecuteLoadItemsCommand();
+        }
         async void OnItemSelected(CardSet cardSet)
         {
             if (cardSet == null)
